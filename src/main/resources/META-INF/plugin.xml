@@ -12,5 +12,14 @@
     <resource-bundle>messages.AmberBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
+        <fileType name="Amber"
+                  implementationClass="org.mvnsearch.jetbrains.amber.AmberFileType"
+                  fieldName="INSTANCE"
+                  language="Amber"
+                  extensions="ab"/>
+        <lang.parserDefinition language="Amber"
+                               implementationClass="org.mvnsearch.jetbrains.amber.AmberParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="Amber"
+                                       implementationClass="org.mvnsearch.jetbrains.amber.AmberSyntaxHighlighterFactory"/>
     </extensions>
 </idea-plugin>
