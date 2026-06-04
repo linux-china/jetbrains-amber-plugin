@@ -14,8 +14,8 @@ dependencies {
     intellijPlatform {
         intellijIdea("2026.1.2")
         testFramework(TestFrameworkType.Platform)
-        // Grammar-Kit and PsiViewer for custom language development
-        bundledPlugin("com.intellij.java")
+        // PsiViewer for custom language development
+        plugin("PsiViewer", "2026.1")
     }
 }
 
