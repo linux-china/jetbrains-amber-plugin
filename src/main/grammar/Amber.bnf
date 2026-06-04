@@ -1,0 +1,314 @@
+{
+  parserClass="org.mvnsearch.jetbrains.amber.parser.AmberParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Amber"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.mvnsearch.jetbrains.amber.psi"
+  psiImplPackage="org.mvnsearch.jetbrains.amber.psi.impl"
+
+  elementTypeHolderClass="org.mvnsearch.jetbrains.amber.psi.AmberTypes"
+  elementTypeClass="org.mvnsearch.jetbrains.amber.psi.AmberElementType"
+  tokenTypeClass="org.mvnsearch.jetbrains.amber.psi.AmberTokenType"
+
+  tokens = [
+    AND_KW           = 'and'
+    AS_KW            = 'as'
+    AWAIT_KW         = 'await'
+    BREAK_KW         = 'break'
+    CD_KW            = 'cd'
+    CLEAR_KW         = 'clear'
+    CONST_KW         = 'const'
+    CONTINUE_KW      = 'continue'
+    CP_KW            = 'cp'
+    DISOWN_KW        = 'disown'
+    ECHO_KW          = 'echo'
+    ELSE_KW          = 'else'
+    EXIT_KW          = 'exit'
+    EXITED_KW        = 'exited'
+    FAIL_KW          = 'fail'
+    FAILED_KW        = 'failed'
+    FOR_KW           = 'for'
+    FROM_KW          = 'from'
+    FUN_KW           = 'fun'
+    IF_KW            = 'if'
+    IMPORT_KW        = 'import'
+    IN_KW            = 'in'
+    IS_KW            = 'is'
+    LEN_KW           = 'len'
+    LET_KW           = 'let'
+    LINES_KW         = 'lines'
+    LOCK_KW          = 'lock'
+    LOOP_KW          = 'loop'
+    LS_KW            = 'ls'
+    MAIN_KW          = 'main'
+    MV_KW            = 'mv'
+    NAMEOF_KW        = 'nameof'
+    NOT_KW           = 'not'
+    OR_KW            = 'or'
+    PID_KW           = 'pid'
+    PUB_KW           = 'pub'
+    PWD_KW           = 'pwd'
+    REF_KW           = 'ref'
+    RETURN_KW        = 'return'
+    RM_KW            = 'rm'
+    SHELLNAME_KW     = 'shellname'
+    SHELLVERSION_KW  = 'shellversion'
+    SILENT_KW        = 'silent'
+    SLEEP_KW         = 'sleep'
+    STATUS_KW        = 'status'
+    SUCCEEDED_KW     = 'succeeded'
+    SUDO_KW          = 'sudo'
+    SUPPRESS_KW      = 'suppress'
+    TEST_KW          = 'test'
+    THEN_KW          = 'then'
+    TOUCH_KW         = 'touch'
+    TRUST_KW         = 'trust'
+    UNSAFE_KW        = 'unsafe'
+    WHILE_KW         = 'while'
+
+    TRUE             = 'true'
+    FALSE            = 'false'
+    NULL             = 'null'
+
+    TYPE_TEXT        = 'Text'
+    TYPE_NUM         = 'Num'
+    TYPE_BOOL        = 'Bool'
+    TYPE_NULL        = 'Null'
+    TYPE_INT         = 'Int'
+
+    PLUS             = '+'
+    MINUS            = '-'
+    STAR             = '*'
+    SLASH            = '/'
+    PERCENT          = '%'
+    EQ               = '='
+    EQEQ             = '=='
+    NEQ              = '!='
+    LT               = '<'
+    LE               = '<='
+    GT               = '>'
+    GE               = '>='
+    PLUS_EQ          = '+='
+    MINUS_EQ         = '-='
+    STAR_EQ          = '*='
+    SLASH_EQ         = '/='
+    PERCENT_EQ       = '%='
+    QUESTION         = '?'
+    DOTDOT           = '..'
+    DOTDOTEQ         = '..='
+    PIPE             = '|'
+    HASH_LBRACK      = '#['
+
+    LPAREN           = '('
+    RPAREN           = ')'
+    LBRACK           = '['
+    RBRACK           = ']'
+    LBRACE           = '{'
+    RBRACE           = '}'
+    COLON            = ':'
+    COMMA            = ','
+
+    NUMBER           = 'regexp:[0-9]+(\.[0-9]+)?'
+    IDENTIFIER       = 'regexp:[A-Za-z_][A-Za-z_0-9]*'
+    STRING           = 'regexp:"([^"\\\r\n]|\\.)*"'
+    COMMAND          = 'regexp:\$([^\$\\\r\n]|\\.)*\$'
+
+    LINE_COMMENT     = 'regexp://[^\r\n]*'
+    DOC_COMMENT      = 'regexp:///[^\r\n]*'
+  ]
+}
+
+root ::= statement_global*
+
+private statement_global ::=
+    function_def
+  | import_all
+  | import_ids
+  | main_def
+  | test_def
+  | statement_local
+
+private statement_local ::=
+    doc_comment_stmt
+  | if_chain
+  | if_statement
+  | loop_array_iterator
+  | loop_array
+  | loop_simple
+  | while_loop
+  | variable_init_destruct
+  | variable_init_const
+  | variable_init_mut
+  | variable_set_destruct
+  | shorthand_add
+  | shorthand_sub
+  | shorthand_mul
+  | shorthand_div
+  | shorthand_modulo
+  | variable_set
+  | break_stmt
+  | continue_stmt
+  | return_stmt
+  | fail_stmt
+  | command_modifier_block
+  | builtins_statement
+  | expression
+
+doc_comment_stmt ::= DOC_COMMENT
+
+block ::= multiline_block | singleline_block
+singleline_block ::= ':' statement_local
+multiline_block ::= '{' statement_local* '}'
+
+visibility ::= 'pub'
+
+type_ref ::= simple_type ('|' simple_type)*
+private simple_type ::= 'Text' | 'Num' | 'Bool' | 'Null' | 'Int' | '[' type_ref ']'
+
+attribute ::= '#[' IDENTIFIER ']'
+
+variable_init_mut ::= attribute* visibility? 'let' IDENTIFIER '=' expression
+variable_init_const ::= attribute* visibility? 'const' IDENTIFIER '=' expression
+variable_init_destruct ::= attribute* visibility? ('let' | 'const') '[' IDENTIFIER (',' IDENTIFIER)* ']' '=' expression
+variable_set ::= IDENTIFIER variable_index? '=' expression
+variable_set_destruct ::= '[' IDENTIFIER (',' IDENTIFIER)* ']' '=' expression
+variable_index ::= '[' expression ']'
+
+shorthand_add ::= IDENTIFIER '+=' expression
+shorthand_sub ::= IDENTIFIER '-=' expression
+shorthand_mul ::= IDENTIFIER '*=' expression
+shorthand_div ::= IDENTIFIER '/=' expression
+shorthand_modulo ::= IDENTIFIER '%=' expression
+
+loop_simple ::= 'loop' block
+loop_array ::= ('for' | 'loop') IDENTIFIER 'in' expression block
+loop_array_iterator ::= ('for' | 'loop') IDENTIFIER ',' IDENTIFIER 'in' expression block
+while_loop ::= 'while' expression block
+
+break_stmt ::= 'break'
+continue_stmt ::= 'continue'
+return_stmt ::= 'return' expression?
+fail_stmt ::= 'fail' expression?
+
+function_def ::= attribute* visibility? 'fun' IDENTIFIER '(' parameter_list? ')' (':' type_ref)? '?'? block
+private parameter_list ::= parameter (',' parameter)*
+parameter ::= 'ref'? IDENTIFIER (':' type_ref)?
+
+function_call ::= command_modifier IDENTIFIER '(' expression_list? ')' handler?
+private expression_list ::= expression (',' expression)*
+
+import_all ::= visibility? 'import' '*' 'from' import_path
+import_ids ::= visibility? 'import' '{' import_id_list? '}' 'from' import_path
+private import_id_list ::= import_id (',' import_id)* ','?
+import_id ::= IDENTIFIER ('as' IDENTIFIER)?
+import_path ::= STRING
+
+main_def ::= 'main' ('(' IDENTIFIER ')')? '?'? block
+test_def ::= 'test' STRING? block
+
+if_statement ::= 'if' expression block ('else' block)?
+if_chain ::= 'if' '{' if_chain_arm* ('else' block)? '}'
+if_chain_arm ::= expression block
+
+command_modifier ::= command_modifier_part*
+private command_modifier_part ::= 'silent' | 'suppress' | 'trust' | 'sudo'
+command_modifier_block ::= command_modifier multiline_block
+
+handler ::= success_handler | failure_handler | exited_handler
+success_handler ::= 'succeeded' block
+failure_handler ::= failure_block | failure_propagation
+failure_block ::= 'failed' ('(' IDENTIFIER ')')? block
+failure_propagation ::= '?'
+exited_handler ::= 'exited' ('(' IDENTIFIER ')')? block
+
+builtins_statement ::=
+    builtin_await
+  | builtin_cd
+  | builtin_clear
+  | builtin_cp
+  | builtin_disown
+  | builtin_echo
+  | builtin_exit
+  | builtin_lock
+  | builtin_mv
+  | builtin_rm
+  | builtin_sleep
+  | builtin_touch
+
+builtin_await ::= 'await' expression
+builtin_cd ::= 'cd' expression
+builtin_clear ::= 'clear'
+builtin_cp ::= 'cp' expression
+builtin_disown ::= 'disown' expression
+builtin_echo ::= 'echo' expression
+builtin_exit ::= 'exit' expression
+builtin_lock ::= 'lock' expression
+builtin_mv ::= 'mv' expression
+builtin_rm ::= 'rm' expression
+builtin_sleep ::= 'sleep' expression
+builtin_touch ::= 'touch' expression
+
+builtins_expression ::=
+    builtin_len
+  | builtin_lines
+  | builtin_ls
+  | builtin_nameof
+  | builtin_shellname
+  | builtin_shellversion
+  | builtin_pid
+  | builtin_pwd
+
+builtin_len ::= 'len' expression
+builtin_lines ::= 'lines' expression
+builtin_ls ::= 'ls' expression
+builtin_nameof ::= 'nameof' expression
+builtin_pid ::= 'pid'
+builtin_pwd ::= 'pwd' expression
+builtin_shellname ::= 'shellname'
+builtin_shellversion ::= 'shellversion'
+
+expression ::= or_expression ternary_tail?
+ternary_tail ::= 'then' or_expression 'else' or_expression
+
+or_expression ::= and_expression ('or' and_expression)*
+and_expression ::= comparison_expression ('and' comparison_expression)*
+comparison_expression ::= range_expression (comparison_op range_expression)*
+private comparison_op ::= '==' | '!=' | '<=' | '>=' | '<' | '>'
+range_expression ::= additive_expression (range_op additive_expression)?
+private range_op ::= '..=' | '..'
+additive_expression ::= multiplicative_expression (additive_op multiplicative_expression)*
+private additive_op ::= '+' | '-'
+multiplicative_expression ::= type_op_expression (multiplicative_op type_op_expression)*
+private multiplicative_op ::= '*' | '/' | '%'
+type_op_expression ::= unary_expression (type_op type_ref)?
+private type_op ::= 'as' | 'is'
+unary_expression ::= unary_prefix* postfix_expression
+private unary_prefix ::= '-' | 'not'
+postfix_expression ::= primary_expression postfix_op*
+private postfix_op ::= '[' expression ']'
+
+private primary_expression ::=
+    parentheses
+  | boolean_lit
+  | null_lit
+  | number_lit
+  | text_lit
+  | status_expr
+  | command_call
+  | array_lit
+  | builtins_expression
+  | function_call
+  | identifier_ref
+
+parentheses ::= '(' expression ')'
+boolean_lit ::= 'true' | 'false'
+null_lit ::= 'null'
+number_lit ::= NUMBER
+text_lit ::= STRING
+command_call ::= command_modifier COMMAND handler?
+array_lit ::= '[' array_body? ']'
+private array_body ::= expression_list | type_ref
+status_expr ::= 'status' ('(' ')')?
+identifier_ref ::= IDENTIFIER
