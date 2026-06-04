@@ -3,6 +3,7 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.intellij.platform")
+    id("org.jetbrains.intellij.platform.grammarkit")
     id("org.jetbrains.changelog")
 }
 
@@ -13,14 +14,38 @@ dependencies {
     intellijPlatform {
         intellijIdea("2026.1.2")
         testFramework(TestFrameworkType.Platform)
+        // Grammar-Kit and PsiViewer for custom language development
+        bundledPlugin("com.intellij.java")
     }
 }
 
+// Grammar-Kit Lexer generation task
+tasks {
+    generateLexer {
+        sourceFile.set(file("src/main/grammar/Amber.flex"))
+        targetOutputDir.set(file("src/main/gen/org/mvnsearch/jetbrains/amber/lexer"))
+        purgeOldFiles.set(true)
+    }
+
+    generateParser {
+        sourceFile.set(file("src/main/grammar/Amber.bnf"))
+        targetRootOutputDir.set(file("src/main/gen"))
+        pathToParser.set("/org/mvnsearch/jetbrains/amber/parser/AmberParser.java")
+        pathToPsiRoot.set("/org/mvnsearch/jetbrains/amber/psi")
+        purgeOldFiles.set(true)
+    }
+}
 
 kotlin {
     compilerOptions {
         languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_3)
         freeCompilerArgs.set(listOf("-XXLanguage:+MultiDollarInterpolation"))
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDirs("src/main/gen")
     }
 }
 
