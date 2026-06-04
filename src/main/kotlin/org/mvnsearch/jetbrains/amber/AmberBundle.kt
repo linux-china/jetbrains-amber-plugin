@@ -1,4 +1,4 @@
-package com.github.linuxchina.jetbrainsamberplugin
+package org.mvnsearch.jetbrains.amber
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
