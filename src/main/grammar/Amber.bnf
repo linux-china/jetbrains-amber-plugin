@@ -117,10 +117,13 @@
 
     LINE_COMMENT     = 'regexp://[^\r\n]*'
     DOC_COMMENT      = 'regexp:///[^\r\n]*'
+    SHEBANG          = 'regexp:#![^\r\n]*'
   ]
 }
 
-root ::= statement_global*
+root ::= shebang_line? statement_global*
+
+shebang_line ::= SHEBANG
 
 private statement_global ::=
     function_def

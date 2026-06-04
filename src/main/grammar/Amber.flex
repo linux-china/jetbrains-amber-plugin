@@ -7,6 +7,7 @@ import com.intellij.psi.TokenType;
 
 %%
 
+%public
 %class AmberLexer
 %implements FlexLexer
 %unicode
@@ -24,6 +25,7 @@ REAL={DIGIT}+\.{DIGIT}+
 NUMBER={REAL}|{INTEGER}
 IDENTIFIER={LETTER}({LETTER}|{DIGIT})*
 
+SHEBANG="#!"[^\r\n]*
 DOC_COMMENT="///"[^\r\n]*
 LINE_COMMENT="//"[^\r\n]*
 
@@ -34,6 +36,7 @@ COMMAND=\$([^\\\$\r\n]|\\.)*\$
 
 <YYINITIAL> {
   {WHITE_SPACE}            { return TokenType.WHITE_SPACE; }
+  {SHEBANG}                { return AmberTypes.SHEBANG; }
   {DOC_COMMENT}            { return AmberTypes.DOC_COMMENT; }
   {LINE_COMMENT}           { return AmberTypes.LINE_COMMENT; }
 
