@@ -39,5 +39,6 @@
                              implementationClass="org.mvnsearch.jetbrains.amber.AmberFoldingBuilder"/>
         <annotator language="Amber"
                    implementationClass="org.mvnsearch.jetbrains.amber.AmberHighlightAnnotator"/>
+        <lang.directNavigationProvider implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
     </extensions>
 </idea-plugin>
