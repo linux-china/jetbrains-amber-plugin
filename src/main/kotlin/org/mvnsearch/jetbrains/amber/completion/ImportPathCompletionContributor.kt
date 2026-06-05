@@ -6,6 +6,7 @@ import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import org.mvnsearch.jetbrains.amber.AmberLanguage
+import org.mvnsearch.jetbrains.amber.AmberStdLibrary
 import org.mvnsearch.jetbrains.amber.psi.AmberImportPath
 import org.mvnsearch.jetbrains.amber.psi.AmberTypes
 
@@ -32,8 +33,9 @@ class ImportPathCompletionContributor : CompletionContributor() {
                             }
                         }
                     } else if (!text.startsWith(".")) {
-                        result.addElement(LookupElementBuilder.create("std/http"))
-                        result.addElement(LookupElementBuilder.create("std/array"))
+                        AmberStdLibrary.STD_LIB_NAMES.forEach {
+                            result.addElement(LookupElementBuilder.create(it))
+                        }
                     }
                 }
             }
