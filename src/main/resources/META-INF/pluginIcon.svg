@@ -1,0 +1,39 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="amberGrad" x1="24" y1="3" x2="24" y2="45" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#F4502A"/>
+            <stop offset="0.55" stop-color="#F77818"/>
+            <stop offset="1" stop-color="#FBA01E"/>
+        </linearGradient>
+        <linearGradient id="facetGrad" x1="20" y1="8" x2="23" y2="17" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#FF8A2B"/>
+            <stop offset="1" stop-color="#FF6A12"/>
+        </linearGradient>
+    </defs>
+
+    <!-- 宝石主体：长六边形晶体 -->
+    <path d="M22.6 3.6
+           C23.3 3.0 24.7 3.0 25.4 3.6
+           L34.6 14.2
+           C35.5 15.0 36 16.2 36 17.4
+           L36 30.6
+           C36 31.8 35.5 33.0 34.6 33.8
+           L25.2 44.4
+           C24.5 45.2 23.5 45.2 22.8 44.4
+           L13.4 33.8
+           C12.5 33.0 12 31.8 12 30.6
+           L12 17.4
+           C12 16.2 12.5 15.0 13.4 14.2
+           Z"
+          fill="url(#amberGrad)"/>
+
+    <!-- 顶部高光三角面 -->
+    <path d="M18.5 16.0
+           L24.5 8.5
+           C25 8 25.2 8.4 25 9
+           L23 16
+           C22.8 16.5 22.3 16.6 21.8 16.5
+           L18.8 16.8
+           C18.2 16.7 18.1 16.4 18.5 16.0 Z"
+          fill="url(#facetGrad)"/>
+</svg>
