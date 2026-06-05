@@ -212,7 +212,8 @@ import_id ::= IDENTIFIER ('as' IDENTIFIER)?
 import_path ::= STRING
 
 main_def ::= 'main' ('(' IDENTIFIER ')')? '?'? block
-test_def ::= 'test' STRING? block
+test_def ::= 'test' test_name? block
+test_name ::= STRING
 
 if_statement ::= 'if' expression block ('else' block)?
 if_chain ::= 'if' '{' if_chain_arm* ('else' block)? '}'
