@@ -196,13 +196,13 @@ return_stmt ::= 'return' expression?
 fail_stmt ::= 'fail' expression?
 
 // function related
-function_name ::= IDENTIFIER
+function_name ::= IDENTIFIER | builtins_statement
 parameter_name ::= IDENTIFIER
 function_def ::= attribute* visibility? 'fun' function_name '(' parameter_list? ')' (':' type_ref)? '?'? block
 private parameter_list ::= parameter (',' parameter)*
 parameter ::= 'ref'? parameter_name (':' type_ref)?
 
-function_call ::= command_modifier IDENTIFIER '(' expression_list? ')' handler?
+function_call ::= command_modifier function_name '(' expression_list? ')' handler?
 private expression_list ::= expression (',' expression)*
 
 import_all ::= visibility? 'import' '*' 'from' import_path
