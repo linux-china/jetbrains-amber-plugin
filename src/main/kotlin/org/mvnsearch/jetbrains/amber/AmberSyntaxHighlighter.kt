@@ -18,6 +18,7 @@ class AmberSyntaxHighlighter : SyntaxHighlighterBase() {
     override fun getHighlightingLexer(): Lexer = FlexAdapter(AmberLexer(null))
 
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> = when (tokenType) {
+        in BUILTIN_FUNCTIONS -> arrayOf(FUNCTION_DECLARATION)
         in KEYWORDS -> KEYWORD_KEYS
         in TYPE_NAMES -> TYPE_KEYS
         in LITERAL_KEYWORDS -> LITERAL_KEYS
@@ -112,23 +113,31 @@ class AmberSyntaxHighlighter : SyntaxHighlighterBase() {
         )
 
         private val SUCCESS_KEYWORDS: Set<IElementType> = setOf(
-            AmberTypes.SUCCEEDED_KW
+            AmberTypes.SUCCEEDED_KW, AmberTypes.TRUST_KW
+        )
+
+        private val BUILTIN_FUNCTIONS: Set<IElementType> = setOf(
+            AmberTypes.CD_KW, AmberTypes.CP_KW, AmberTypes.ECHO_KW, AmberTypes.EXIT_KW,
+            AmberTypes.LEN_KW, AmberTypes.LINES_KW, AmberTypes.MV_KW, AmberTypes.NAMEOF_KW,
+            AmberTypes.AWAIT_KW, AmberTypes.CP_KW, AmberTypes.LS_KW, AmberTypes.RM_KW,
+            AmberTypes.SLEEP_KW, AmberTypes.TOUCH_KW, AmberTypes.LOCK_KW,
+            AmberTypes.CLEAR_KW, AmberTypes.PWD_KW, AmberTypes.PID_KW,
+            AmberTypes.DISOWN_KW, AmberTypes.SHELLNAME_KW, AmberTypes.SHELLVERSION_KW,
         )
         private val KEYWORDS: Set<IElementType> = setOf(
-            AmberTypes.AND_KW, AmberTypes.AS_KW, AmberTypes.AWAIT_KW, AmberTypes.BREAK_KW,
-            AmberTypes.CD_KW, AmberTypes.CLEAR_KW, AmberTypes.CONST_KW, AmberTypes.CONTINUE_KW,
-            AmberTypes.CP_KW, AmberTypes.DISOWN_KW, AmberTypes.ECHO_KW, AmberTypes.ELSE_KW,
-            AmberTypes.EXIT_KW, AmberTypes.EXITED_KW,
-            AmberTypes.FOR_KW, AmberTypes.FROM_KW, AmberTypes.FUN_KW, AmberTypes.IF_KW,
-            AmberTypes.IMPORT_KW, AmberTypes.IN_KW, AmberTypes.IS_KW, AmberTypes.LEN_KW,
-            AmberTypes.LET_KW, AmberTypes.LINES_KW, AmberTypes.LOCK_KW, AmberTypes.LOOP_KW,
-            AmberTypes.LS_KW, AmberTypes.MAIN_KW, AmberTypes.MV_KW, AmberTypes.NAMEOF_KW,
-            AmberTypes.NOT_KW, AmberTypes.OR_KW, AmberTypes.PID_KW, AmberTypes.PUB_KW,
-            AmberTypes.PWD_KW, AmberTypes.REF_KW, AmberTypes.RETURN_KW, AmberTypes.RM_KW,
-            AmberTypes.SHELLNAME_KW, AmberTypes.SHELLVERSION_KW, AmberTypes.SILENT_KW,
-            AmberTypes.SLEEP_KW, AmberTypes.STATUS_KW, AmberTypes.SUDO_KW,
-            AmberTypes.SUPPRESS_KW, AmberTypes.TEST_KW, AmberTypes.THEN_KW, AmberTypes.TOUCH_KW,
-            AmberTypes.TRUST_KW, AmberTypes.UNSAFE_KW, AmberTypes.WHILE_KW
+            AmberTypes.AND_KW, AmberTypes.AS_KW, AmberTypes.BREAK_KW,
+            AmberTypes.CONST_KW, AmberTypes.CONTINUE_KW, AmberTypes.ELSE_KW,
+            AmberTypes.EXITED_KW, AmberTypes.FOR_KW, AmberTypes.FROM_KW,
+            AmberTypes.FUN_KW, AmberTypes.IF_KW,
+            AmberTypes.IMPORT_KW, AmberTypes.IN_KW, AmberTypes.IS_KW,
+            AmberTypes.LET_KW, AmberTypes.LOOP_KW,
+            AmberTypes.MAIN_KW,
+            AmberTypes.NOT_KW, AmberTypes.OR_KW, AmberTypes.PUB_KW,
+            AmberTypes.REF_KW, AmberTypes.RETURN_KW,
+            AmberTypes.SILENT_KW,
+            AmberTypes.STATUS_KW, AmberTypes.SUDO_KW,
+            AmberTypes.SUPPRESS_KW, AmberTypes.TEST_KW, AmberTypes.THEN_KW,
+            AmberTypes.UNSAFE_KW, AmberTypes.WHILE_KW
         )
 
         private val TYPE_NAMES: Set<IElementType> = setOf(
