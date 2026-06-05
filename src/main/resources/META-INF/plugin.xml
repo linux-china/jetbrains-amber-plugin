@@ -40,5 +40,8 @@
         <annotator language="Amber"
                    implementationClass="org.mvnsearch.jetbrains.amber.AmberHighlightAnnotator"/>
         <lang.directNavigationProvider implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
+        <completion.contributor language="Amber"
+                                implementationClass="org.mvnsearch.jetbrains.amber.completion.ImportPathCompletionContributor"/>
+
     </extensions>
 </idea-plugin>
