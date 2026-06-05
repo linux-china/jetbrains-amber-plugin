@@ -20,12 +20,12 @@ class AmberHighlightAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         when (element) {
             is AmberFunctionName -> {
-                val key = when (element.parent) {
+                val attributesKey = when (element.parent) {
                     is AmberFunctionDef -> AmberSyntaxHighlighter.FUNCTION_DECLARATION
-                    is AmberFunctionCall -> AmberSyntaxHighlighter.FUNCTION_CALL
+                    is AmberFunctionCall -> AmberSyntaxHighlighter.FUNCTION_DECLARATION
                     else -> return
                 }
-                highlight(element, holder, key)
+                highlight(element, holder, attributesKey)
             }
 
             is AmberParameterName -> highlight(element, holder, AmberSyntaxHighlighter.PARAMETER)
