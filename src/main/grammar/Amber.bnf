@@ -172,22 +172,24 @@ private simple_type ::= 'Text' | 'Num' | 'Bool' | 'Null' | 'Int' | '[' type_ref 
 
 attribute ::= '#[' IDENTIFIER ']'
 
-variable_init_mut ::= attribute* visibility? 'let' IDENTIFIER '=' expression
+// variables
+variable_name ::= IDENTIFIER
+variable_init_mut ::= attribute* visibility? 'let' variable_name '=' expression
 variable_init_const ::= attribute* visibility? 'const' IDENTIFIER '=' expression
 variable_init_destruct ::= attribute* visibility? ('let' | 'const') '[' IDENTIFIER (',' IDENTIFIER)* ']' '=' expression
-variable_set ::= IDENTIFIER variable_index? '=' expression
-variable_set_destruct ::= '[' IDENTIFIER (',' IDENTIFIER)* ']' '=' expression
+variable_set ::= variable_name variable_index? '=' expression
+variable_set_destruct ::= '[' variable_name (',' variable_name)* ']' '=' expression
 variable_index ::= '[' expression ']'
 
-shorthand_add ::= IDENTIFIER '+=' expression
-shorthand_sub ::= IDENTIFIER '-=' expression
-shorthand_mul ::= IDENTIFIER '*=' expression
-shorthand_div ::= IDENTIFIER '/=' expression
-shorthand_modulo ::= IDENTIFIER '%=' expression
+shorthand_add ::= variable_name '+=' expression
+shorthand_sub ::= variable_name '-=' expression
+shorthand_mul ::= variable_name '*=' expression
+shorthand_div ::= variable_name '/=' expression
+shorthand_modulo ::= variable_name '%=' expression
 
 loop_simple ::= 'loop' block
-loop_array ::= ('for' | 'loop') IDENTIFIER 'in' expression block
-loop_array_iterator ::= ('for' | 'loop') IDENTIFIER ',' IDENTIFIER 'in' expression block
+loop_array ::= ('for' | 'loop') variable_name 'in' expression block
+loop_array_iterator ::= ('for' | 'loop') variable_name ',' variable_name 'in' expression block
 while_loop ::= 'while' expression block
 
 break_stmt ::= 'break'
