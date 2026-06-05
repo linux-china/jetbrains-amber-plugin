@@ -14,8 +14,6 @@
     <actions>
         <action id="NewAmberFile"
                 class="org.mvnsearch.jetbrains.amber.actions.NewAmberFileAction"
-                text="Amber File"
-                description="Create new Amber file"
                 icon="org.mvnsearch.jetbrains.amber.AmberIcons.FILE">
             <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
         </action>
@@ -39,7 +37,8 @@
                              implementationClass="org.mvnsearch.jetbrains.amber.AmberFoldingBuilder"/>
         <annotator language="Amber"
                    implementationClass="org.mvnsearch.jetbrains.amber.AmberHighlightAnnotator"/>
-        <lang.directNavigationProvider implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
+        <lang.directNavigationProvider
+                implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
         <completion.contributor language="Amber"
                                 implementationClass="org.mvnsearch.jetbrains.amber.completion.ImportPathCompletionContributor"/>
 
