@@ -4,6 +4,7 @@ import com.intellij.lexer.FlexAdapter
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.HighlighterColors
+import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
@@ -24,6 +25,8 @@ class AmberSyntaxHighlighter : SyntaxHighlighterBase() {
         in PARENTHESES -> PAREN_KEYS
         in BRACKETS -> BRACKET_KEYS
         in BRACES -> BRACE_KEYS
+        in SUCCESS_KEYWORDS -> arrayOf(SUCCESS_KEYWORD)
+        in FAILED_KEYWORDS -> arrayOf(FAILED_KEYWORD)
         AmberTypes.COMMA -> COMMA_KEYS
         AmberTypes.COLON -> COLON_KEYS
         AmberTypes.NUMBER -> NUMBER_KEYS
@@ -76,6 +79,11 @@ class AmberSyntaxHighlighter : SyntaxHighlighterBase() {
             createTextAttributesKey("AMBER_LINE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT)
         val DOC_COMMENT: TextAttributesKey =
             createTextAttributesKey("AMBER_DOC_COMMENT", DefaultLanguageHighlighterColors.DOC_COMMENT)
+        val SUCCESS_KEYWORD: TextAttributesKey =
+            createTextAttributesKey("AMBER_SUCCESS_KEYWORD", DefaultLanguageHighlighterColors.STRING)
+        val FAILED_KEYWORD: TextAttributesKey =
+            createTextAttributesKey("AMBER_FAILED_KEYWORD", CodeInsightColors.RUNTIME_ERROR)
+
         val BAD_CHARACTER: TextAttributesKey =
             createTextAttributesKey("AMBER_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER)
 
@@ -97,11 +105,18 @@ class AmberSyntaxHighlighter : SyntaxHighlighterBase() {
         private val DOC_COMMENT_KEYS = arrayOf(DOC_COMMENT)
         private val BAD_CHAR_KEYS = arrayOf(BAD_CHARACTER)
 
+        private val FAILED_KEYWORDS: Set<IElementType> = setOf(
+            AmberTypes.FAIL_KW, AmberTypes.FAILED_KW
+        )
+
+        private val SUCCESS_KEYWORDS: Set<IElementType> = setOf(
+            AmberTypes.SUCCEEDED_KW
+        )
         private val KEYWORDS: Set<IElementType> = setOf(
             AmberTypes.AND_KW, AmberTypes.AS_KW, AmberTypes.AWAIT_KW, AmberTypes.BREAK_KW,
             AmberTypes.CD_KW, AmberTypes.CLEAR_KW, AmberTypes.CONST_KW, AmberTypes.CONTINUE_KW,
             AmberTypes.CP_KW, AmberTypes.DISOWN_KW, AmberTypes.ECHO_KW, AmberTypes.ELSE_KW,
-            AmberTypes.EXIT_KW, AmberTypes.EXITED_KW, AmberTypes.FAIL_KW, AmberTypes.FAILED_KW,
+            AmberTypes.EXIT_KW, AmberTypes.EXITED_KW,
             AmberTypes.FOR_KW, AmberTypes.FROM_KW, AmberTypes.FUN_KW, AmberTypes.IF_KW,
             AmberTypes.IMPORT_KW, AmberTypes.IN_KW, AmberTypes.IS_KW, AmberTypes.LEN_KW,
             AmberTypes.LET_KW, AmberTypes.LINES_KW, AmberTypes.LOCK_KW, AmberTypes.LOOP_KW,
@@ -109,7 +124,7 @@ class AmberSyntaxHighlighter : SyntaxHighlighterBase() {
             AmberTypes.NOT_KW, AmberTypes.OR_KW, AmberTypes.PID_KW, AmberTypes.PUB_KW,
             AmberTypes.PWD_KW, AmberTypes.REF_KW, AmberTypes.RETURN_KW, AmberTypes.RM_KW,
             AmberTypes.SHELLNAME_KW, AmberTypes.SHELLVERSION_KW, AmberTypes.SILENT_KW,
-            AmberTypes.SLEEP_KW, AmberTypes.STATUS_KW, AmberTypes.SUCCEEDED_KW, AmberTypes.SUDO_KW,
+            AmberTypes.SLEEP_KW, AmberTypes.STATUS_KW, AmberTypes.SUDO_KW,
             AmberTypes.SUPPRESS_KW, AmberTypes.TEST_KW, AmberTypes.THEN_KW, AmberTypes.TOUCH_KW,
             AmberTypes.TRUST_KW, AmberTypes.UNSAFE_KW, AmberTypes.WHILE_KW
         )
