@@ -61,6 +61,8 @@ class AmberSyntaxHighlighter : SyntaxHighlighterBase() {
             createTextAttributesKey("AMBER_FUNCTION_CALL", DefaultLanguageHighlighterColors.FUNCTION_CALL)
         val PARAMETER: TextAttributesKey =
             createTextAttributesKey("AMBER_PARAMETER", DefaultLanguageHighlighterColors.PARAMETER)
+        val STATIC_FIELD: TextAttributesKey =
+            createTextAttributesKey("AMBER_STATIC_FIELD", DefaultLanguageHighlighterColors.STATIC_FIELD)
         val OPERATOR: TextAttributesKey =
             createTextAttributesKey("AMBER_OPERATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN)
         val PAREN: TextAttributesKey =
