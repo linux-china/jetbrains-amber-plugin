@@ -195,9 +195,12 @@ continue_stmt ::= 'continue'
 return_stmt ::= 'return' expression?
 fail_stmt ::= 'fail' expression?
 
-function_def ::= attribute* visibility? 'fun' IDENTIFIER '(' parameter_list? ')' (':' type_ref)? '?'? block
+// function related
+function_name ::= IDENTIFIER
+parameter_name ::= IDENTIFIER
+function_def ::= attribute* visibility? 'fun' function_name '(' parameter_list? ')' (':' type_ref)? '?'? block
 private parameter_list ::= parameter (',' parameter)*
-parameter ::= 'ref'? IDENTIFIER (':' type_ref)?
+parameter ::= 'ref'? parameter_name (':' type_ref)?
 
 function_call ::= command_modifier IDENTIFIER '(' expression_list? ')' handler?
 private expression_list ::= expression (',' expression)*
