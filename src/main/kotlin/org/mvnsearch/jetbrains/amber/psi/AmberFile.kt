@@ -9,4 +9,9 @@ import org.mvnsearch.jetbrains.amber.AmberLanguage
 class AmberFile(viewProvider: FileViewProvider) : PsiFileBase(viewProvider, AmberLanguage) {
     override fun getFileType(): FileType = AmberFileType
     override fun toString(): String = "Amber File"
+
+    fun getPubElements(): List<AmberNamedElement> {
+        return this.children.filterIsInstance<AmberNamedElement>()
+            .filter { it.text.startsWith("pub ") }
+    }
 }
