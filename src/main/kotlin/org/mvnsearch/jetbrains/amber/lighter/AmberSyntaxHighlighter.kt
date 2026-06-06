@@ -1,4 +1,4 @@
-package org.mvnsearch.jetbrains.amber
+package org.mvnsearch.jetbrains.amber.lighter
 
 import com.intellij.lexer.FlexAdapter
 import com.intellij.lexer.Lexer

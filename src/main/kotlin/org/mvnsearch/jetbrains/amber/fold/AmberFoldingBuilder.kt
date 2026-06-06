@@ -1,4 +1,4 @@
-package org.mvnsearch.jetbrains.amber
+package org.mvnsearch.jetbrains.amber.fold
 
 import com.intellij.lang.ASTNode
 import com.intellij.lang.folding.FoldingBuilderEx

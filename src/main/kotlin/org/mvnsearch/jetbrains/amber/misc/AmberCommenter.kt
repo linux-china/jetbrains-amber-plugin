@@ -1,4 +1,4 @@
-package org.mvnsearch.jetbrains.amber
+package org.mvnsearch.jetbrains.amber.misc
 
 import com.intellij.lang.Commenter
 

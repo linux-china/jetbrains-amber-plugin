@@ -1,4 +1,4 @@
-package org.mvnsearch.jetbrains.amber
+package org.mvnsearch.jetbrains.amber.lighter
 
 import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator

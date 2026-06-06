@@ -28,15 +28,15 @@
         <lang.parserDefinition language="Amber"
                                implementationClass="org.mvnsearch.jetbrains.amber.AmberParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Amber"
-                                       implementationClass="org.mvnsearch.jetbrains.amber.AmberSyntaxHighlighterFactory"/>
+                                       implementationClass="org.mvnsearch.jetbrains.amber.lighter.AmberSyntaxHighlighterFactory"/>
         <lang.braceMatcher language="Amber"
-                           implementationClass="org.mvnsearch.jetbrains.amber.AmberBraceMatcher"/>
+                           implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberBraceMatcher"/>
         <lang.commenter language="Amber"
-                        implementationClass="org.mvnsearch.jetbrains.amber.AmberCommenter"/>
+                        implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberCommenter"/>
         <lang.foldingBuilder language="Amber"
-                             implementationClass="org.mvnsearch.jetbrains.amber.AmberFoldingBuilder"/>
+                             implementationClass="org.mvnsearch.jetbrains.amber.fold.AmberFoldingBuilder"/>
         <annotator language="Amber"
-                   implementationClass="org.mvnsearch.jetbrains.amber.AmberHighlightAnnotator"/>
+                   implementationClass="org.mvnsearch.jetbrains.amber.lighter.AmberHighlightAnnotator"/>
         <lang.directNavigationProvider
                 implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
         <completion.contributor language="Amber"
