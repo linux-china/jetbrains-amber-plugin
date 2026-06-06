@@ -176,8 +176,8 @@ attribute ::= '#[' attribute_name ']'
 
 // variables
 variable_name ::= IDENTIFIER
-variable_init_mut ::= attribute* visibility? 'let' variable_name '=' expression
-variable_init_const ::= attribute* visibility? 'const' variable_name '=' expression
+variable_init_mut ::= attribute* visibility? 'let' variable_name '=' expression { mixin="org.mvnsearch.jetbrains.amber.psi.AmberVariableInitMutElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
+variable_init_const ::= attribute* visibility? 'const' variable_name '=' expression { mixin="org.mvnsearch.jetbrains.amber.psi.AmberVariableInitConstElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
 variable_init_destruct ::= attribute* visibility? ('let' | 'const') '[' variable_name (',' variable_name)* ']' '=' expression
 variable_set ::= variable_name variable_index? '=' expression
 variable_set_destruct ::= '[' variable_name (',' variable_name)* ']' '=' expression
@@ -200,9 +200,9 @@ return_stmt ::= 'return' expression?
 fail_stmt ::= 'fail' expression?
 
 // function related
-function_name ::= IDENTIFIER | builtins_statement
+function_name ::= IDENTIFIER | CD_KW | ECHO_KW | LEN_KW | LINES_KW | MV_KW | NAMEOF_KW | AWAIT_KW | CP_KW | LS_KW | RM_KW | SLEEP_KW | TOUCH_KW | LOCK_KW | CLEAR_KW | PWD_KW | PID_KW | DISOWN_KW | SHELLNAME_KW | SHELLVERSION_KW
 parameter_name ::= IDENTIFIER
-function_def ::= attribute* visibility? 'fun' function_name '(' parameter_list? ')' (':' type_ref)? '?'? block
+function_def ::= attribute* visibility? 'fun' function_name '(' parameter_list? ')' (':' type_ref)? '?'? block { mixin="org.mvnsearch.jetbrains.amber.psi.AmberFunctionDefElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
 private parameter_list ::= parameter (',' parameter)*
 parameter ::= 'ref'? parameter_name (':' type_ref)?
 
