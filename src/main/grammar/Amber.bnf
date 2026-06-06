@@ -170,7 +170,9 @@ visibility ::= 'pub'
 type_ref ::= simple_type ('|' simple_type)*
 private simple_type ::= 'Text' | 'Num' | 'Bool' | 'Null' | 'Int' | '[' type_ref ']'
 
-attribute ::= '#[' IDENTIFIER ']'
+// attribute
+attribute_name ::= IDENTIFIER
+attribute ::= '#[' attribute_name ']'
 
 // variables
 variable_name ::= IDENTIFIER
