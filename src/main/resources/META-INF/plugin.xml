@@ -46,6 +46,9 @@
                                         implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberMainLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="Amber"
                                         implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberTestLineMarkerProvider"/>
+        <liveTemplateContext contextId="AMBER"
+                             implementation="org.mvnsearch.jetbrains.amber.template.AmberTemplateContextType"/>
+        <defaultLiveTemplates file="liveTemplates/Amber"/>
 
     </extensions>
 </idea-plugin>
