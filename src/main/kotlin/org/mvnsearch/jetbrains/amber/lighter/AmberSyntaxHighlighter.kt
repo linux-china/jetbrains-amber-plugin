@@ -87,6 +87,9 @@ class AmberSyntaxHighlighter : SyntaxHighlighterBase() {
         val FAILED_KEYWORD: TextAttributesKey =
             createTextAttributesKey("AMBER_FAILED_KEYWORD", CodeInsightColors.RUNTIME_ERROR)
 
+        val MARKUP_ATTRIBUTE: TextAttributesKey =
+            createTextAttributesKey("AMBER_MARKUP_ATTRIBUTE", DefaultLanguageHighlighterColors.METADATA)
+
         val BAD_CHARACTER: TextAttributesKey =
             createTextAttributesKey("AMBER_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER)
 
