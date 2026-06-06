@@ -175,8 +175,8 @@ attribute ::= '#[' IDENTIFIER ']'
 // variables
 variable_name ::= IDENTIFIER
 variable_init_mut ::= attribute* visibility? 'let' variable_name '=' expression
-variable_init_const ::= attribute* visibility? 'const' IDENTIFIER '=' expression
-variable_init_destruct ::= attribute* visibility? ('let' | 'const') '[' IDENTIFIER (',' IDENTIFIER)* ']' '=' expression
+variable_init_const ::= attribute* visibility? 'const' variable_name '=' expression
+variable_init_destruct ::= attribute* visibility? ('let' | 'const') '[' variable_name (',' variable_name)* ']' '=' expression
 variable_set ::= variable_name variable_index? '=' expression
 variable_set_destruct ::= '[' variable_name (',' variable_name)* ']' '=' expression
 variable_index ::= '[' expression ']'
