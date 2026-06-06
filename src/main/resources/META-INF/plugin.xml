@@ -44,6 +44,8 @@
                                 implementationClass="org.mvnsearch.jetbrains.amber.completion.ImportPathCompletionContributor"/>
         <codeInsight.lineMarkerProvider language="Amber"
                                         implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberMainLineMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="Amber"
+                                        implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberTestLineMarkerProvider"/>
 
     </extensions>
 </idea-plugin>
