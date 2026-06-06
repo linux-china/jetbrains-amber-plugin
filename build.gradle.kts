@@ -14,6 +14,7 @@ dependencies {
     intellijPlatform {
         intellijIdea("2026.1.2")
         testFramework(TestFrameworkType.Platform)
+        bundledPlugin("org.jetbrains.plugins.terminal")
         // PsiViewer for custom language development
         plugin("PsiViewer", "2026.1")
     }
