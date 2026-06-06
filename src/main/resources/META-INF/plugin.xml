@@ -42,6 +42,8 @@
                 implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
         <completion.contributor language="Amber"
                                 implementationClass="org.mvnsearch.jetbrains.amber.completion.ImportPathCompletionContributor"/>
+        <completion.contributor language="Amber"
+                                implementationClass="org.mvnsearch.jetbrains.amber.completion.ImportModuleMemberCompletionContributor"/>
         <codeInsight.lineMarkerProvider language="Amber"
                                         implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberMainLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="Amber"
