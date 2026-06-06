@@ -8,6 +8,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.elementType
+import org.mvnsearch.jetbrains.amber.psi.AmberAttribute
 import org.mvnsearch.jetbrains.amber.psi.AmberFunctionCall
 import org.mvnsearch.jetbrains.amber.psi.AmberFunctionDef
 import org.mvnsearch.jetbrains.amber.psi.AmberFunctionName
@@ -30,6 +31,7 @@ class AmberHighlightAnnotator : Annotator {
 
             is AmberParameterName -> highlight(element, holder, AmberSyntaxHighlighter.PARAMETER)
             is AmberImportId -> highlight(element, holder, AmberSyntaxHighlighter.STATIC_FIELD)
+            is AmberAttribute -> highlight(element, holder, AmberSyntaxHighlighter.MARKUP_ATTRIBUTE)
             else -> {
                 if (element.elementType == AmberTypes.STRING) {
                     highLightInterpolationInString(element, holder)
