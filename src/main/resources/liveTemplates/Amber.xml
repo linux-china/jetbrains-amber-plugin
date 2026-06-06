@@ -1,0 +1,52 @@
+<templateSet group="Amber">
+    <template name="cmd_failed"
+              value="$$ $COMMAND$ $$ failed(code) {&#10;    $END$&#10;}"
+              description="Amber command call with failed handler"
+              toReformat="false"
+              toShortenFQNames="false">
+        <variable name="COMMAND" expression="" defaultValue="&quot;command_here&quot;" alwaysStopAt="true"/>
+        <context>
+            <option name="AMBER" value="true"/>
+        </context>
+    </template>
+    <template name="cmd_succeeded"
+              value="$$ $COMMAND$ $$ succeeded {&#10;    $END$&#10;}"
+              description="Amber command call with succeeded handler"
+              toReformat="false"
+              toShortenFQNames="false">
+        <variable name="COMMAND" expression="" alwaysStopAt="true"/>
+        <context>
+            <option name="AMBER" value="true"/>
+        </context>
+    </template>
+    <template name="cmd_exited"
+              value="$$ $COMMAND$ $$ exited(code) {&#10;    $END$&#10;}"
+              description="Amber command call with exited handler"
+              toReformat="false"
+              toShortenFQNames="false">
+        <variable name="COMMAND" expression="" alwaysStopAt="true"/>
+        <context>
+            <option name="AMBER" value="true"/>
+        </context>
+    </template>
+    <template name="imp_all"
+              value="import * from &quot;$LIB$&quot;&#10;$END$"
+              description="Import all members from library"
+              toReformat="false"
+              toShortenFQNames="false">
+        <variable name="LIB" expression="" alwaysStopAt="true"/>
+        <context>
+            <option name="AMBER" value="true"/>
+        </context>
+    </template>
+    <template name="imp_members"
+              value="import { $END$ } from &quot;$LIB$&quot;"
+              description="Import members from library"
+              toReformat="false"
+              toShortenFQNames="false">
+        <variable name="LIB" expression="" alwaysStopAt="true"/>
+        <context>
+            <option name="AMBER" value="true"/>
+        </context>
+    </template>
+</templateSet>
