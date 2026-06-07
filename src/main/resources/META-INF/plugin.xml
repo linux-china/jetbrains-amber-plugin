@@ -51,6 +51,8 @@
                              implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberNamesValidator"/>
         <lang.findUsagesProvider language="Amber"
                                  implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberFindUsagesProvider"/>
+        <editorNotificationProvider
+                implementation="org.mvnsearch.jetbrains.amber.notification.AmberInterpreterNotificationProvider"/>
         <configurationType
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationType"/>
         <runConfigurationProducer
