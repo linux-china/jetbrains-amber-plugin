@@ -73,7 +73,7 @@ tasks {
 kotlin {
     compilerOptions {
         languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
-        freeCompilerArgs.set(listOf("-XXLanguage:+MultiDollarInterpolation"))
+        //freeCompilerArgs.set(listOf("-XXLanguage:+MultiDollarInterpolation"))
     }
 }
 
