@@ -49,6 +49,8 @@
                 implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberImportPathManipulator"/>
         <lang.namesValidator language="Amber"
                              implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberNamesValidator"/>
+        <lang.findUsagesProvider language="Amber"
+                                 implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberFindUsagesProvider"/>
         <configurationType
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationType"/>
         <runConfigurationProducer
