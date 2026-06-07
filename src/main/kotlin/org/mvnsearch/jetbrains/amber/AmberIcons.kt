@@ -4,5 +4,5 @@ import com.intellij.openapi.util.IconLoader
 
 object AmberIcons {
     @JvmField
-    val FILE = IconLoader.getIcon("/icons/amber-16x16.png", AmberIcons::class.java)
+    val FILE = IconLoader.getIcon("/icons/amber-16x16.svg", AmberIcons::class.java)
 }
