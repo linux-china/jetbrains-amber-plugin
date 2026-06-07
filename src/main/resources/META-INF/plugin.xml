@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>amber</id>
     <name>Amber Language</name>
-    <vendor>linux-china</vendor>
+    <vendor>linux_china</vendor>
     <description><![CDATA[
         <p><b>Amber</b> is a JetBrains plugin that provides support for the [Amber](https://amber-lang.com/) language.</p>
     ]]></description>
