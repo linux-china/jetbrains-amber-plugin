@@ -52,6 +52,7 @@
 <!--                                    implementationClass="org.mvnsearch.jetbrains.amber.documentation.AmberDocumentationProvider"/>-->
         <lang.psiStructureViewFactory language="Amber"
                                       implementationClass="org.mvnsearch.jetbrains.amber.structure.AmberStructureViewFactory"/>
+        <typedHandler implementation="org.mvnsearch.jetbrains.amber.misc.AmberTypedHandler"/>
         <codeInsight.parameterNameHints
                 language="Amber"
                 implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberHintsProvider"/>
