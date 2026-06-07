@@ -59,12 +59,15 @@
         <lang.smartEnterProcessor
                 language="Amber"
                 implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberSmartEnterProcessor"/>
+        <externalAnnotator
+                language="Amber"
+                implementationClass="org.mvnsearch.jetbrains.amber.check.AmberExternalAnnotator"/>
         <configurationType
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationType"/>
         <runConfigurationProducer
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationProducer"/>
-<!--        <lang.documentationProvider language="Amber"-->
-<!--                                    implementationClass="org.mvnsearch.jetbrains.amber.documentation.AmberDocumentationProvider"/>-->
+        <!--        <lang.documentationProvider language="Amber"-->
+        <!--                                    implementationClass="org.mvnsearch.jetbrains.amber.documentation.AmberDocumentationProvider"/>-->
         <lang.psiStructureViewFactory language="Amber"
                                       implementationClass="org.mvnsearch.jetbrains.amber.structure.AmberStructureViewFactory"/>
         <typedHandler implementation="org.mvnsearch.jetbrains.amber.misc.AmberTypedHandler"/>
