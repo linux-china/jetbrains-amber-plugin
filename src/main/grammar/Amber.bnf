@@ -168,7 +168,7 @@ multiline_block ::= '{' statement_local* '}'
 visibility ::= 'pub'
 
 type_ref ::= simple_type ('|' simple_type)*
-private simple_type ::= 'Text' | 'Num' | 'Bool' | 'Null' | 'Int' | '[' type_ref ']'
+private simple_type ::= 'Text' | 'Num' | 'Bool' | 'Null' | 'Int' | '[' type_ref? ']'
 
 // attribute
 attribute_name ::= IDENTIFIER
