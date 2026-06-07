@@ -17,6 +17,16 @@ class AmberFile(viewProvider: FileViewProvider) : PsiFileBase(viewProvider, Ambe
             .firstOrNull { it.name == name }
     }
 
+    fun findImportedPsiFile(importPath: String): AmberFile? {
+        val modulePath = importPath.trim('"')
+        if (modulePath.startsWith("std/")) {
+            val libFile = AmberStdLibrary.find(modulePath) ?: return null
+            return PsiManager.getInstance(project).findFile(libFile) as AmberFile
+        }
+        val dir = this.originalFile.parent ?: return null
+        return dir.findFile(modulePath.removePrefix("./")) as AmberFile?
+    }
+
     fun getPubElements(): List<AmberNamedElement> {
         return this.children.filterIsInstance<AmberNamedElement>()
             .filter { it.text.startsWith("pub ") }
