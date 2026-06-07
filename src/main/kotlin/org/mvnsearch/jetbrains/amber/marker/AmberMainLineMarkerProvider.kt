@@ -31,7 +31,7 @@ class AmberMainLineMarkerProvider : LineMarkerProvider {
             { "Run Amber Script" },
             { _, _ -> runScript(file) },
             GutterIconRenderer.Alignment.LEFT,
-            Supplier { "Run Amber Script" }
+            { "Run Amber Script" }
         )
     }
 
@@ -45,7 +45,7 @@ class AmberMainLineMarkerProvider : LineMarkerProvider {
         val relativePath = projectDir?.let { VfsUtilCore.getRelativePath(virtualFile, it) } ?: virtualFile.path
 
         val service = project.getService(AmberTerminalService::class.java) ?: return
-        val view = service.getOrCreateTerminalView(file.name)
-        view.sendText("amber $relativePath\n")
+        val terminalWidget = service.getOrCreateTerminalView(file.name)
+        terminalWidget.executeCommand("amber $relativePath\n")
     }
 }

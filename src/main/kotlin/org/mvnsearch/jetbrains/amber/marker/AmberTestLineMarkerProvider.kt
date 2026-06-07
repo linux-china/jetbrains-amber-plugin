@@ -28,7 +28,7 @@ class AmberTestLineMarkerProvider : LineMarkerProvider {
             { "Run Amber Test" },
             { _, _ -> runTest(file, testDef) },
             GutterIconRenderer.Alignment.LEFT,
-            Supplier { "Run Amber Test" }
+            { "Run Amber Test" }
         )
     }
 
@@ -47,7 +47,7 @@ class AmberTestLineMarkerProvider : LineMarkerProvider {
 
         val service = project.getService(AmberTerminalService::class.java) ?: return
         val view = service.getOrCreateTerminalView(file.name)
-        view.sendText(command)
+        view.executeCommand(command)
     }
 
     private fun unquote(text: String): String =
