@@ -48,6 +48,8 @@ main {
 
 * Run amber script from the shebang gutter run icon
 
+Enjoy shell scripting with Amber!
+
 <!-- Plugin description end -->
 
 ## Installation
