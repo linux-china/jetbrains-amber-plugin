@@ -41,7 +41,7 @@
         <annotator language="Amber"
                    implementationClass="org.mvnsearch.jetbrains.amber.lighter.AmberHighlightAnnotator"/>
         <lang.directNavigationProvider
-                implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
+                implementation="org.mvnsearch.jetbrains.amber.navigation.AmberIdentifierRefNavigation"/>
         <psi.referenceContributor language="Amber"
                                   implementation="org.mvnsearch.jetbrains.amber.navigation.AmberImportPathReferenceContributor"/>
         <lang.elementManipulator
