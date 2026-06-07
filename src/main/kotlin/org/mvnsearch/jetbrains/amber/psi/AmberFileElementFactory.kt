@@ -35,4 +35,17 @@ object AmberFileElementFactory {
             ?: error("Could not parse parameter for name '$name'")
         return parameter.parameterName
     }
+
+    /** Build an `import { <name> } from "<libPath>"` statement and return its PSI. */
+    fun createImportIds(project: Project, name: String, libPath: String): AmberImportIds {
+        val source = "import { $name } from \"$libPath\""
+        return createImportIdsFromText(project, source)
+    }
+
+    /** Parse an arbitrary `import { … } from "…"` line and return the resulting PSI. */
+    fun createImportIdsFromText(project: Project, importStatement: String): AmberImportIds {
+        val file = createFile(project, importStatement + "\n")
+        return com.intellij.psi.util.PsiTreeUtil.findChildOfType(file, AmberImportIds::class.java)
+            ?: error("Could not parse import statement: $importStatement")
+    }
 }
