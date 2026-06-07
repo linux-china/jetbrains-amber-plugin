@@ -11,12 +11,15 @@
 Plugin features:
 
 * Amber language and file types
-* Syntax highlight
-* Run a script with shebang or main function
+* Syntax highlight 
+* Amber file structure
+* Run a script from shebang or main function
 * Run a test case from the test gutter icon
-* Run configuration support: `Run -> Edit Configurations -> Amber` or right-click in an Amber script 
-* Code completion: std library, function, keywords, etc.
+* Run configuration support: `Run -> Edit Configurations -> Amber` or right-click in an Amber script
+* Code completion: std library, imported members, function, keywords, etc.
+* Navigation support for function
 * Basic support for formatting
+* live templates for import and function call
 
 How to use?
 
