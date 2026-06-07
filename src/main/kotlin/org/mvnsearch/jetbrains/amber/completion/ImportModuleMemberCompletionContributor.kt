@@ -49,8 +49,8 @@ class ImportModuleMemberCompletionContributor : CompletionContributor() {
                             }
                         }
                     } else if (importPath.startsWith("std/")) {
-                        AmberStdLibrary.find(importPath.removePrefix("std/"))?.let { amberFile ->
-                            addPubElements(element.project, amberFile, result, importedIdList)
+                        AmberStdLibrary.findMembers(importPath).forEach { member ->
+                            result.addElement(LookupElementBuilder.create(member.name).withIcon(member.icon))
                         }
                     }
                 }
