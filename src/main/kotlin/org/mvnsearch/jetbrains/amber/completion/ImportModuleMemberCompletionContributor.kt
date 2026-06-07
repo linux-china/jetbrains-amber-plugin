@@ -43,9 +43,17 @@ class ImportModuleMemberCompletionContributor : CompletionContributor() {
                     val importPath = importStatement.importPath.text.trim('"')
                     if (importPath.isEmpty()) return
                     if (importPath.startsWith("./")) {
-                        element.containingFile?.originalFile?.virtualFile?.parent?.let { dir ->
-                            dir.findChild(importPath.removePrefix("./"))?.let { amberFile ->
-                                addPubElements(element.project, amberFile, result, importedIdList)
+                        val amberPsiFile = element.containingFile as? AmberFile? ?: return
+                        val importedPsiFile = amberPsiFile.findImportedPsiFile(importPath) ?: return
+                        importedPsiFile.getPubElements().forEach { namedElement ->
+                            val idName = namedElement.name!!
+                            if (!importedIdList.contains(idName)) {
+                                val icon = if (namedElement is AmberFunctionDef) {
+                                    AllIcons.Nodes.Function
+                                } else {
+                                    AllIcons.Nodes.Variable
+                                }
+                                result.addElement(LookupElementBuilder.create(idName).withIcon(icon))
                             }
                         }
                     } else if (importPath.startsWith("std/")) {
@@ -58,27 +66,5 @@ class ImportModuleMemberCompletionContributor : CompletionContributor() {
         )
     }
 
-    fun addPubElements(
-        project: Project,
-        amberFile: VirtualFile,
-        result: CompletionResultSet,
-        importedIdList: List<String>
-    ) {
-        PsiManager.getInstance(project).findFile(amberFile)?.let { psiFile ->
-            if (psiFile is AmberFile) {
-                psiFile.getPubElements().forEach { namedElement ->
-                    val idName = namedElement.name!!
-                    if (!importedIdList.contains(idName)) {
-                        val icon = if (namedElement is AmberFunctionDef) {
-                            AllIcons.Nodes.Function
-                        } else {
-                            AllIcons.Nodes.Variable
-                        }
-                        result.addElement(LookupElementBuilder.create(idName).withIcon(icon))
-                    }
-                }
-            }
-        }
-    }
 }
 
