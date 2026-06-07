@@ -62,6 +62,13 @@
         <externalAnnotator
                 language="Amber"
                 implementationClass="org.mvnsearch.jetbrains.amber.check.AmberExternalAnnotator"/>
+        <localInspection language="Amber"
+                         shortName="AmberUnresolvedFunction"
+                         displayName="Unresolved function reference (auto-import from std)"
+                         groupName="Amber"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="org.mvnsearch.jetbrains.amber.inspection.AmberUnresolvedFunctionInspection"/>
         <configurationType
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationType"/>
         <runConfigurationProducer
