@@ -7,7 +7,7 @@ import org.mvnsearch.jetbrains.amber.AmberFileType
 object AmberFileElementFactory {
 
     fun createFile(project: Project, text: String) =
-        PsiFileFactory.getInstance(project).createFileFromText("1.ab", AmberFileType, text) as AmberFile
+        PsiFileFactory.getInstance(project).createFileFromText("__amber_1.ab", AmberFileType, text) as AmberFile
 
 
     fun createFunctionDef(project: Project, functionName: String): AmberFunctionDef {
