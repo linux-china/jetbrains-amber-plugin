@@ -44,6 +44,9 @@
                 implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
         <lang.namesValidator language="Amber"
                              implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberNamesValidator"/>
+        <codeInsight.parameterNameHints
+                language="Amber"
+                implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberHintsProvider"/>
         <completion.contributor language="Amber"
                                 implementationClass="org.mvnsearch.jetbrains.amber.completion.ImportPathCompletionContributor"/>
         <completion.contributor language="Amber"
