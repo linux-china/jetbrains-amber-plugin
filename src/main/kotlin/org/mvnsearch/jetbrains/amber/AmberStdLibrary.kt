@@ -186,6 +186,18 @@ object AmberStdLibrary {
 
     private fun normalize(path: String): String = if (path.endsWith(".ab")) path else "$path.ab"
 
+    /**
+     * Inverse of [findMembers]: given a bare symbol name, return the `std/<lib>` path
+     * that exports it (or `null` if no std library exports a member with this name).
+     * Used by the auto-import quick fix to suggest the right `from "std/<lib>"`.
+     */
+    fun findContainingLib(name: String): String? {
+        for (libPath in STD_LIB_NAMES) {
+            if (findMembers(libPath).any { it.name == name }) return libPath
+        }
+        return null
+    }
+
     fun findMembers(path: String): List<MemberItem> {
         return when (path) {
             "std/array", "array" -> STD_ARRAY_MEMBERS
