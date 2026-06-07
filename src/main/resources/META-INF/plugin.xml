@@ -48,6 +48,10 @@
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationType"/>
         <runConfigurationProducer
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationProducer"/>
+<!--        <lang.documentationProvider language="Amber"-->
+<!--                                    implementationClass="org.mvnsearch.jetbrains.amber.documentation.AmberDocumentationProvider"/>-->
+        <lang.psiStructureViewFactory language="Amber"
+                                      implementationClass="org.mvnsearch.jetbrains.amber.structure.AmberStructureViewFactory"/>
         <codeInsight.parameterNameHints
                 language="Amber"
                 implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberHintsProvider"/>
