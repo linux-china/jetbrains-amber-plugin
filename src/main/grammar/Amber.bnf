@@ -112,7 +112,7 @@
 
     NUMBER           = 'regexp:[0-9]+(\.[0-9]+)?'
     IDENTIFIER       = 'regexp:[A-Za-z_][A-Za-z_0-9]*'
-    STRING           = 'regexp:"([^"\\\r\n]|\\.)*"'
+    STRING           = 'regexp:"([^"\\\r\n]|\\.)*"?'
     COMMAND          = 'regexp:\$([^\$\\\r\n]|\\.)*\$'
 
     LINE_COMMENT     = 'regexp://[^\r\n]*'

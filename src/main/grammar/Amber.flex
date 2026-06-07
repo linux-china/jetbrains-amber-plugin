@@ -29,7 +29,7 @@ SHEBANG="#!"[^\r\n]*
 DOC_COMMENT="///"[^\r\n]*
 LINE_COMMENT="//"[^\r\n]*
 
-STRING=\"([^\\\"\r\n]|\\.)*\"
+STRING=\"([^\\\"\r\n]|\\.)*\"?
 COMMAND=\$([^\\\$]|\\.|\\\r|\\\n)*\$
 
 %%
