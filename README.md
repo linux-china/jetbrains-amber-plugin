@@ -8,10 +8,21 @@
 <!-- Plugin description -->
 **JetBrains Amber Language Plugin** is a plugin to support [Amber Language](https://amber-lang.com/) in JetBrains IDEs.
 
-Plugin features:
+Amber is a modern, type-safe programming language that can be compiled to Bash/Ksh/Zsh.
+
+Amber features:
+
+- Modern Syntax: ECMA Script-like syntax
+- Runtime Safety: Amber ensures that you handle everything that could fail
+- Type Safety: use strong typing to catch bugs at compile time
+- Instant Docs: generate documentation automatically
+- Shell Ready: Interoperate with Bash/Ksh/Zsh scripts
+- Library baked in: Standard library with many useful functions
+
+Amber JetBrains plugin features:
 
 * Amber language and file types
-* Syntax highlight 
+* Syntax highlight
 * Amber file structure
 * Run a script from shebang or main function
 * Run a test case from the test gutter icon
@@ -21,7 +32,7 @@ Plugin features:
 * Basic support for formatting
 * live templates for import and function call
 
-How to use?
+How to get started?
 
 * Download and install `amber` command line from https://docs.amber-lang.com/getting_started/installation
 * Install JetBrains Amber plugin
