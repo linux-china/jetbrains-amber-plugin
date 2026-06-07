@@ -176,7 +176,7 @@ attribute ::= '#[' attribute_name ']'
 
 // variables
 variable_name ::= IDENTIFIER
-variable_value ::= STRING | NUMBER| TRUE | FALSE | NULL | expression
+variable_value ::= STRING | TRUE | FALSE | NULL | expression | NUMBER
 variable_init_mut ::= attribute* visibility? 'let' variable_name '=' variable_value { mixin="org.mvnsearch.jetbrains.amber.psi.AmberVariableInitMutElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
 variable_init_const ::= attribute* visibility? 'const' variable_name '=' variable_value { mixin="org.mvnsearch.jetbrains.amber.psi.AmberVariableInitConstElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
 variable_init_destruct ::= attribute* visibility? ('let' | 'const') '[' variable_name (',' variable_name)* ']' '=' expression
