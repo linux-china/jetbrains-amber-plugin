@@ -36,6 +36,8 @@
                         implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberCommenter"/>
         <lang.foldingBuilder language="Amber"
                              implementationClass="org.mvnsearch.jetbrains.amber.fold.AmberFoldingBuilder"/>
+        <lang.quoteHandler language="Amber"
+                           implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberQuoteHandler"/>
         <annotator language="Amber"
                    implementationClass="org.mvnsearch.jetbrains.amber.lighter.AmberHighlightAnnotator"/>
         <lang.directNavigationProvider
@@ -44,6 +46,8 @@
                                 implementationClass="org.mvnsearch.jetbrains.amber.completion.ImportPathCompletionContributor"/>
         <completion.contributor language="Amber"
                                 implementationClass="org.mvnsearch.jetbrains.amber.completion.ImportModuleMemberCompletionContributor"/>
+        <!--        <completion.contributor language="Amber"-->
+        <!--                                implementationClass="org.mvnsearch.jetbrains.amber.completion.FunctionNameCompletionContributor"/>-->
         <codeInsight.lineMarkerProvider language="Amber"
                                         implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberMainLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="Amber"
@@ -51,6 +55,8 @@
         <liveTemplateContext contextId="AMBER"
                              implementation="org.mvnsearch.jetbrains.amber.template.AmberTemplateContextType"/>
         <defaultLiveTemplates file="liveTemplates/Amber"/>
+        <lang.formatter language="Amber"
+                        implementationClass="org.mvnsearch.jetbrains.amber.formatter.AmberFormattingModelBuilder"/>
 
     </extensions>
 </idea-plugin>
