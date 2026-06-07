@@ -39,6 +39,9 @@ class MiscCompletionContributor : CompletionContributor() {
                     // Imports and attribute names use their own identifier sets — skip here.
                     if (isInsideImport(position)) return
                     if (isInsideAttribute(position)) return
+                    // Skip when the user is typing a postfix-template trigger (e.g. `expr.if`):
+                    // the postfix template provider handles those abbreviations.
+                    if (isPostfixContext(parameters)) return
 
                     // Inside a type annotation (`: Text`, `as Num`, `is Bool`) only built-in types make sense.
                     if (isInsideTypeRef(position)) {
@@ -76,6 +79,20 @@ class MiscCompletionContributor : CompletionContributor() {
 
     private fun isInsideTypeRef(element: PsiElement): Boolean =
         PsiTreeUtil.getParentOfType(element, AmberTypeRef::class.java) != null
+
+    /**
+     * Detect `expression.<typing>` postfix-template positions by inspecting the character
+     * immediately preceding the IDENTIFIER being typed. The platform inserts a synthetic
+     * dummy identifier at the caret, so its text range start sits right where the user is
+     * typing — if the previous char is `.`, this is a postfix trigger, not a free-standing
+     * keyword position.
+     */
+    private fun isPostfixContext(parameters: CompletionParameters): Boolean {
+        val startOffset = parameters.position.textRange.startOffset
+        if (startOffset <= 0) return false
+        val text = parameters.editor.document.charsSequence
+        return text[startOffset - 1] == '.'
+    }
 
     companion object {
         private val GENERAL_KEYWORDS = listOf(
