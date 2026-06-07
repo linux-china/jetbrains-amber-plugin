@@ -205,7 +205,7 @@ function_name ::= IDENTIFIER | CD_KW | ECHO_KW | LEN_KW | LINES_KW | MV_KW | NAM
 parameter_name ::= IDENTIFIER
 function_def ::= attribute* visibility? 'fun' function_name '(' parameter_list? ')' (':' type_ref)? '?'? block { mixin="org.mvnsearch.jetbrains.amber.psi.AmberFunctionDefElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
 private parameter_list ::= parameter (',' parameter)*
-parameter ::= 'ref'? parameter_name (':' type_ref)?
+parameter ::= 'ref'? parameter_name (':' type_ref)? ('=' expression)?
 
 function_call ::= command_modifier function_name '(' expression_list? ')' handler?
 private expression_list ::= expression (',' expression)*
