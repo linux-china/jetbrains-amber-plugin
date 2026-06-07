@@ -21,4 +21,18 @@ object AmberFileElementFactory {
     fun createAmberVariableInitMut(project: Project, variableName: String): AmberVariableInitMut {
         return createFile(project, "let $variableName = 0").firstChild as AmberVariableInitMut
     }
+
+    fun createFunctionName(project: Project, name: String): AmberFunctionName =
+        createFunctionDef(project, name).functionName!!
+
+    fun createVariableName(project: Project, name: String): AmberVariableName =
+        createAmberVariableInitMut(project, name).variableName
+
+    fun createParameterName(project: Project, name: String): AmberParameterName {
+        val file = createFile(project, "fun __amber_dummy($name) {}")
+        val def = file.firstChild as AmberFunctionDef
+        val parameter = com.intellij.psi.util.PsiTreeUtil.findChildOfType(def, AmberParameter::class.java)
+            ?: error("Could not parse parameter for name '$name'")
+        return parameter.parameterName
+    }
 }
