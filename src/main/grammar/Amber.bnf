@@ -203,7 +203,7 @@ fail_stmt ::= 'fail' expression?
 // function related
 function_name ::= IDENTIFIER | CD_KW | ECHO_KW | LEN_KW | LINES_KW | MV_KW | NAMEOF_KW | AWAIT_KW | CP_KW | LS_KW | RM_KW | SLEEP_KW | TOUCH_KW | LOCK_KW | CLEAR_KW | PWD_KW | PID_KW | DISOWN_KW | SHELLNAME_KW | SHELLVERSION_KW { mixin="org.mvnsearch.jetbrains.amber.psi.AmberFunctionNameElementImpl" implements="com.intellij.psi.PsiNameIdentifierOwner" methods=[getName setName getNameIdentifier] }
 parameter_name ::= IDENTIFIER { mixin="org.mvnsearch.jetbrains.amber.psi.AmberParameterNameElementImpl" implements="com.intellij.psi.PsiNameIdentifierOwner" methods=[getName setName getNameIdentifier] }
-function_def ::= attribute* visibility? 'fun' function_name '(' parameter_list? ')' (':' type_ref)? '?'? block { mixin="org.mvnsearch.jetbrains.amber.psi.AmberFunctionDefElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
+function_def ::= attribute* visibility? 'fun' function_name '(' parameter_list? ')' (':' type_ref)? '?'? block { mixin="org.mvnsearch.jetbrains.amber.psi.AmberFunctionDefElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getName setName getNameIdentifier getPresentation] }
 private parameter_list ::= parameter (',' parameter)*
 parameter ::= 'ref'? parameter_name (':' type_ref)? ('=' expression)?
 
