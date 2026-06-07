@@ -4,6 +4,10 @@ import com.intellij.navigation.DirectNavigationProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiManager
 import org.mvnsearch.jetbrains.amber.AmberStdLibrary
+import org.mvnsearch.jetbrains.amber.psi.AmberFile
+import org.mvnsearch.jetbrains.amber.psi.AmberFunctionName
+import org.mvnsearch.jetbrains.amber.psi.AmberImportAll
+import org.mvnsearch.jetbrains.amber.psi.AmberImportIds
 import org.mvnsearch.jetbrains.amber.psi.AmberImportPath
 
 @Suppress("UnstableApiUsage")
@@ -23,6 +27,32 @@ class ImportPathRefNavigation : DirectNavigationProvider {
             val target = baseDir.findFileByRelativePath(withAmberExtension(path)) ?: return null
             val psiFile = psiManager.findFile(target)
             return psiFile
+        } else if (element is AmberFunctionName) {
+            val functionName = element.text
+            val amberPsiFile = element.containingFile as AmberFile
+            // find declaration in the file
+            val targetElement = amberPsiFile.findNamedElement(functionName)
+            if (targetElement != null) {
+                return targetElement
+            }
+            // find declaration from import id list
+            amberPsiFile.findChildrenByClass(AmberImportIds::class.java).forEach { importIds ->
+                val idList = importIds.importIdList.map { importId -> importId.text }
+                if (idList.contains(functionName)) {
+                    amberPsiFile.findImportedPsiFile(importIds.importPath.text)?.let { importedPsiFile ->
+                        return importedPsiFile.findNamedElement(functionName)
+                    }
+                }
+            }
+            // find from import *
+            amberPsiFile.findChildrenByClass(AmberImportAll::class.java).forEach { importAll ->
+                amberPsiFile.findImportedPsiFile(importAll.importPath.text)?.let { importedPsiFile ->
+                    val functionDef = importedPsiFile.findNamedElement(functionName)
+                    if (functionDef != null) {
+                        return functionDef
+                    }
+                }
+            }
         }
         return null
     }
