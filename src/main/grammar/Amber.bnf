@@ -176,8 +176,9 @@ attribute ::= '#[' attribute_name ']'
 
 // variables
 variable_name ::= IDENTIFIER
-variable_init_mut ::= attribute* visibility? 'let' variable_name '=' expression { mixin="org.mvnsearch.jetbrains.amber.psi.AmberVariableInitMutElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
-variable_init_const ::= attribute* visibility? 'const' variable_name '=' expression { mixin="org.mvnsearch.jetbrains.amber.psi.AmberVariableInitConstElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
+variable_value ::= STRING | NUMBER| TRUE | FALSE | NULL | expression
+variable_init_mut ::= attribute* visibility? 'let' variable_name '=' variable_value { mixin="org.mvnsearch.jetbrains.amber.psi.AmberVariableInitMutElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
+variable_init_const ::= attribute* visibility? 'const' variable_name '=' variable_value { mixin="org.mvnsearch.jetbrains.amber.psi.AmberVariableInitConstElementImpl" implements="org.mvnsearch.jetbrains.amber.psi.AmberNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
 variable_init_destruct ::= attribute* visibility? ('let' | 'const') '[' variable_name (',' variable_name)* ']' '=' expression
 variable_set ::= variable_name variable_index? '=' expression
 variable_set_destruct ::= '[' variable_name (',' variable_name)* ']' '=' expression
