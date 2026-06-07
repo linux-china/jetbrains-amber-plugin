@@ -3,12 +3,16 @@ package org.mvnsearch.jetbrains.amber.navigation
 import com.intellij.navigation.DirectNavigationProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiManager
+import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.psi.util.elementType
 import org.mvnsearch.jetbrains.amber.AmberStdLibrary
 import org.mvnsearch.jetbrains.amber.psi.AmberFile
 import org.mvnsearch.jetbrains.amber.psi.AmberFunctionName
+import org.mvnsearch.jetbrains.amber.psi.AmberIdentifierRef
 import org.mvnsearch.jetbrains.amber.psi.AmberImportAll
 import org.mvnsearch.jetbrains.amber.psi.AmberImportIds
 import org.mvnsearch.jetbrains.amber.psi.AmberImportPath
+import org.mvnsearch.jetbrains.amber.psi.AmberTypes
 
 @Suppress("UnstableApiUsage")
 class ImportPathRefNavigation : DirectNavigationProvider {
@@ -53,6 +57,9 @@ class ImportPathRefNavigation : DirectNavigationProvider {
                     }
                 }
             }
+        } else if (element.elementType == AmberTypes.IDENTIFIER) {
+            // todo implement variable navigation
+            // val identifierRef = PsiTreeUtil.getParentOfType(element, AmberIdentifierRef::class.java)
         }
         return null
     }
