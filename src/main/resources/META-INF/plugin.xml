@@ -76,6 +76,9 @@
         <liveTemplateContext contextId="AMBER"
                              implementation="org.mvnsearch.jetbrains.amber.template.AmberTemplateContextType"/>
         <defaultLiveTemplates file="liveTemplates/Amber"/>
+        <codeInsight.template.postfixTemplateProvider
+                language="Amber"
+                implementationClass="org.mvnsearch.jetbrains.amber.template.AmberPostfixTemplateProvider"/>
         <lang.formatter language="Amber"
                         implementationClass="org.mvnsearch.jetbrains.amber.formatter.AmberFormattingModelBuilder"/>
 
