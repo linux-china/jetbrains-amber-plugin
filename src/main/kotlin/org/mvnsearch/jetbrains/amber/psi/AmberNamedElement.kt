@@ -10,10 +10,6 @@ import javax.swing.Icon
 
 interface AmberNamedElement : PsiNameIdentifierOwner, NavigationItem {
 
-    fun getKey(): String?
-
-    fun getValue(): String?
-
     override fun getName(): String?
 
     override fun setName(name: String): PsiElement?
@@ -40,7 +36,7 @@ abstract class AmberNamedElementImpl(node: ASTNode) : ASTWrapperPsiElement(node)
     }
 
     override fun getPresentation(): ItemPresentation? {
-        val presentationText = this.getKey()
+        val presentationText = this.name ?: return null
         val element = this
         return object : ItemPresentation {
             override fun getPresentableText(): String? {
@@ -61,18 +57,10 @@ abstract class AmberNamedElementImpl(node: ASTNode) : ASTWrapperPsiElement(node)
 
 
 abstract class AmberFunctionDefElementImpl(node: ASTNode) : AmberNamedElementImpl(node) {
-    override fun getKey(): String? {
-        val keyNode: ASTNode? = this.node.findChildByType(AmberTypes.FUNCTION_NAME)
-        return keyNode?.text
-    }
-
-    override fun getValue(): String? {
-        val valueNode: ASTNode? = this.node.findChildByType(AmberTypes.FUNCTION_NAME)
-        return valueNode?.text
-    }
 
     override fun getName(): String? {
-        return getKey()
+        val keyNode: ASTNode? = this.node.findChildByType(AmberTypes.FUNCTION_NAME)
+        return keyNode?.text
     }
 
     override fun setName(name: String): PsiElement? {
@@ -91,18 +79,10 @@ abstract class AmberFunctionDefElementImpl(node: ASTNode) : AmberNamedElementImp
 }
 
 abstract class AmberVariableInitConstElementImpl(node: ASTNode) : AmberNamedElementImpl(node) {
-    override fun getKey(): String? {
-        val keyNode: ASTNode? = this.node.findChildByType(AmberTypes.VARIABLE_NAME)
-        return keyNode?.text
-    }
-
-    override fun getValue(): String? {
-        val valueNode: ASTNode? = this.node.findChildByType(AmberTypes.VARIABLE_NAME)
-        return valueNode?.text
-    }
 
     override fun getName(): String? {
-        return getKey()
+        val keyNode: ASTNode? = this.node.findChildByType(AmberTypes.VARIABLE_NAME)
+        return keyNode?.text
     }
 
     override fun setName(name: String): PsiElement? {
@@ -122,18 +102,10 @@ abstract class AmberVariableInitConstElementImpl(node: ASTNode) : AmberNamedElem
 }
 
 abstract class AmberVariableInitMutElementImpl(node: ASTNode) : AmberNamedElementImpl(node) {
-    override fun getKey(): String? {
-        val keyNode: ASTNode? = this.node.findChildByType(AmberTypes.VARIABLE_NAME)
-        return keyNode?.text
-    }
-
-    override fun getValue(): String? {
-        val valueNode: ASTNode? = this.node.findChildByType(AmberTypes.VARIABLE_NAME)
-        return valueNode?.text
-    }
 
     override fun getName(): String? {
-        return getKey()
+        val keyNode: ASTNode? = this.node.findChildByType(AmberTypes.VARIABLE_NAME)
+        return keyNode?.text
     }
 
     override fun setName(name: String): PsiElement? {
@@ -150,5 +122,47 @@ abstract class AmberVariableInitMutElementImpl(node: ASTNode) : AmberNamedElemen
         return this.node.findChildByType(AmberTypes.VARIABLE_NAME)?.psi
     }
 
+}
+
+abstract class AmberFunctionNameElementImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    PsiNameIdentifierOwner {
+
+    override fun getName(): String = text
+
+    override fun setName(name: String): PsiElement {
+        val replacement = AmberFileElementFactory.createFunctionName(project, name)
+        return this.replace(replacement)
+    }
+
+    override fun getNameIdentifier(): PsiElement? = firstChild
+}
+
+abstract class AmberVariableNameElementImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    PsiNameIdentifierOwner {
+
+    override fun getName(): String = text
+
+    override fun setName(name: String): PsiElement {
+        val replacement = AmberFileElementFactory.createVariableName(project, name)
+        return this.replace(replacement)
+    }
+
+    override fun getNameIdentifier(): PsiElement? = firstChild
+}
+
+abstract class AmberParameterNameElementImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    PsiNameIdentifierOwner {
+
+    override fun getName(): String = text
+
+    override fun setName(name: String): PsiElement {
+        val replacement = AmberFileElementFactory.createParameterName(project, name)
+        return this.replace(replacement)
+    }
+
+    override fun getNameIdentifier(): PsiElement? = firstChild
 }
 
