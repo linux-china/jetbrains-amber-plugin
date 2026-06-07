@@ -5,34 +5,25 @@ package org.mvnsearch.jetbrains.amber.terminal
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindowManager
-import com.intellij.terminal.frontend.toolwindow.TerminalToolWindowTabsManager
-import com.intellij.terminal.frontend.view.TerminalView
-import org.jetbrains.plugins.terminal.TerminalToolWindowPanel
+import org.jetbrains.plugins.terminal.ShellTerminalWidget
+import org.jetbrains.plugins.terminal.TerminalToolWindowFactory
+import org.jetbrains.plugins.terminal.TerminalView
 
 @Service(Service.Level.PROJECT)
 class AmberTerminalService(val project: Project) {
 
-    fun getOrCreateTerminalView(title: String): TerminalView {
-        val tabsManager = TerminalToolWindowTabsManager.getInstance(project)
-        val targetTab = tabsManager.tabs.find { it.content.tabName == title }
-        if (targetTab != null) {
-            val toolWindow = ToolWindowManager.getInstance(project).getToolWindow("Terminal")!!
-            toolWindow.contentManager.setSelectedContent(targetTab.content, true)
-            toolWindow.activate(null)
-            return targetTab.view
+    fun getOrCreateTerminalView(title: String): ShellTerminalWidget {
+        val toolWindow =
+            ToolWindowManager.getInstance(project).getToolWindow(TerminalToolWindowFactory.TOOL_WINDOW_ID)!!
+        val targetContent = toolWindow.contentManager.contents.firstOrNull {
+            it.displayName == title
         }
-//        val toolWindow = ToolWindowManager.getInstance(project).getToolWindow("Terminal")!!
-//        toolWindow.contentManager.findContent(title)?.let {
-//            if(it.component is TerminalToolWindowPanel) {
-//                toolWindow.contentManager.setSelectedContent(it, true)
-//                toolWindow.activate(null)
-//                val terminalPanel = it.component as TerminalToolWindowPanel
-//
-//            }
-//        }
-        return tabsManager.createTabBuilder()
-            .tabName(title)
-            .createTab()
-            .view
+        if (targetContent != null) {
+            toolWindow.contentManager.setSelectedContent(targetContent, true)
+            toolWindow.activate(null)
+            return TerminalView.getWidgetByContent(targetContent) as ShellTerminalWidget
+        }
+        val terminalView = TerminalView.getInstance(project)
+        return terminalView.createLocalShellWidget(project.basePath, title, true)
     }
 }
