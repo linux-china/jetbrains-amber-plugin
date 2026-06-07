@@ -42,6 +42,11 @@
                    implementationClass="org.mvnsearch.jetbrains.amber.lighter.AmberHighlightAnnotator"/>
         <lang.directNavigationProvider
                 implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
+        <psi.referenceContributor language="Amber"
+                                  implementation="org.mvnsearch.jetbrains.amber.navigation.AmberImportPathReferenceContributor"/>
+        <lang.elementManipulator
+                forClass="org.mvnsearch.jetbrains.amber.psi.AmberImportPath"
+                implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberImportPathManipulator"/>
         <lang.namesValidator language="Amber"
                              implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberNamesValidator"/>
         <configurationType
