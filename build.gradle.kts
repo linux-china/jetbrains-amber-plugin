@@ -16,11 +16,11 @@ dependencies {
 
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
-        intellijIdea("2025.1.7")
+        intellijIdea("2024.3.7")
         testFramework(TestFrameworkType.Platform)
         bundledPlugin("org.jetbrains.plugins.terminal")
         // PsiViewer for custom language development
-        plugin("PsiViewer", "2025.1")
+        plugin("PsiViewer", "243.7768")
     }
 }
 
