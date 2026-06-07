@@ -44,6 +44,10 @@
                 implementation="org.mvnsearch.jetbrains.amber.navigation.ImportPathRefNavigation"/>
         <lang.namesValidator language="Amber"
                              implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberNamesValidator"/>
+        <configurationType
+                implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationType"/>
+        <runConfigurationProducer
+                implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationProducer"/>
         <codeInsight.parameterNameHints
                 language="Amber"
                 implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberHintsProvider"/>
