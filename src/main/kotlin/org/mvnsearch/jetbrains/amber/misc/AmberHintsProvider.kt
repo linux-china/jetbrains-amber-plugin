@@ -16,14 +16,14 @@ class AmberHintsProvider : InlayParameterHintsProvider {
             if (element.parent is AmberVariableInitMut) {
                 val variableInit = element.parent as AmberVariableInitMut
                 val variableValue = variableInit.variableValue
-                val variableTextValue = element.text
+                val variableTextValue = variableValue.text
                 if (variableValue.string != null) {
                     return listOf(InlayInfo(": Text", element.textRange.endOffset))
                 } else if (variableTextValue.equals("true", true) || variableTextValue.equals("false", true)) {
                     return listOf(InlayInfo(": Bool", element.textRange.endOffset))
                 } else if (variableTextValue == "null") {
                     return listOf(InlayInfo(": Null", element.textRange.endOffset))
-                } else if (variableValue.number != null) {
+                } else if (variableTextValue.toDoubleOrNull() != null) {
                     return if (variableTextValue.contains(".")) {
                         listOf(
                             InlayInfo(": Num", element.textRange.endOffset)
