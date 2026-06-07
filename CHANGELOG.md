@@ -18,3 +18,6 @@
 * Navigation support for function
 * Basic support for formatting
 * live templates for import and function call
+* External annotator to use `amber check` to collect errors and warnings
+* Inspection: auto-import for unresolved function from std library
+
