@@ -17,7 +17,7 @@ class AmberHintsProvider : InlayParameterHintsProvider {
                 val variableInit = element.parent as AmberVariableInitMut
                 val variableValue = variableInit.variableValue
                 val variableTextValue = variableValue.text
-                if (variableValue.string != null) {
+                if (variableTextValue.startsWith("\"") && variableTextValue.endsWith("\"")) {
                     return listOf(InlayInfo(": Text", element.textRange.endOffset))
                 } else if (variableTextValue.equals("true", true) || variableTextValue.equals("false", true)) {
                     return listOf(InlayInfo(": Bool", element.textRange.endOffset))
