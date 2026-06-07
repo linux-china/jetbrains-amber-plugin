@@ -61,6 +61,8 @@
         <completion.contributor language="Amber"
                                 implementationClass="org.mvnsearch.jetbrains.amber.completion.ImportModuleMemberCompletionContributor"/>
         <completion.contributor language="Amber"
+                                implementationClass="org.mvnsearch.jetbrains.amber.completion.AttributeNameCompletionContributor"/>
+        <completion.contributor language="Amber"
                                 implementationClass="org.mvnsearch.jetbrains.amber.completion.MiscCompletionContributor"/>
         <codeInsight.lineMarkerProvider language="Amber"
                                         implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberMainLineMarkerProvider"/>
