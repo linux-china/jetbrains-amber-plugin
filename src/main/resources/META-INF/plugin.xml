@@ -53,6 +53,8 @@
                                  implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberFindUsagesProvider"/>
         <editorNotificationProvider
                 implementation="org.mvnsearch.jetbrains.amber.notification.AmberInterpreterNotificationProvider"/>
+        <spellchecker.support language="Amber"
+                              implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberSpellcheckingStrategy"/>
         <configurationType
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationType"/>
         <runConfigurationProducer
