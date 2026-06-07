@@ -16,11 +16,11 @@ dependencies {
 
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
-        intellijIdea("2026.1.2")
+        intellijIdea("2025.1.7")
         testFramework(TestFrameworkType.Platform)
         bundledPlugin("org.jetbrains.plugins.terminal")
         // PsiViewer for custom language development
-        plugin("PsiViewer", "2026.1")
+        plugin("PsiViewer", "2025.1")
     }
 }
 
@@ -72,7 +72,7 @@ tasks {
 
 kotlin {
     compilerOptions {
-        languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_3)
+        languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
         freeCompilerArgs.set(listOf("-XXLanguage:+MultiDollarInterpolation"))
     }
 }
@@ -82,4 +82,3 @@ sourceSets {
         java.srcDirs("src/main/gen")
     }
 }
-
