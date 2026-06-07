@@ -266,8 +266,6 @@ builtins_expression ::=
   | builtin_lines
   | builtin_ls
   | builtin_nameof
-  | builtin_shellname
-  | builtin_shellversion
   | builtin_pid
   | builtin_pwd
 
@@ -277,8 +275,6 @@ builtin_ls ::= 'ls' expression
 builtin_nameof ::= 'nameof' expression
 builtin_pid ::= 'pid'
 builtin_pwd ::= 'pwd' expression
-builtin_shellname ::= 'shellname'
-builtin_shellversion ::= 'shellversion'
 
 expression ::= or_expression ternary_tail?
 ternary_tail ::= 'then' or_expression 'else' or_expression
