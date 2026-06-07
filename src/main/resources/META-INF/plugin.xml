@@ -56,6 +56,9 @@
         <spellchecker.support language="Amber"
                               implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberSpellcheckingStrategy"/>
         <iconProvider implementation="org.mvnsearch.jetbrains.amber.misc.AmberIconProvider"/>
+        <lang.smartEnterProcessor
+                language="Amber"
+                implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberSmartEnterProcessor"/>
         <configurationType
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationType"/>
         <runConfigurationProducer
