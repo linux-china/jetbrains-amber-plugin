@@ -69,6 +69,7 @@
                          enabledByDefault="true"
                          level="WARNING"
                          implementationClass="org.mvnsearch.jetbrains.amber.inspection.AmberUnresolvedFunctionInspection"/>
+        <fileBasedIndex implementation="org.mvnsearch.jetbrains.amber.index.AmberPubSymbolIndex"/>
         <configurationType
                 implementation="org.mvnsearch.jetbrains.amber.run.AmberRunConfigurationType"/>
         <runConfigurationProducer
