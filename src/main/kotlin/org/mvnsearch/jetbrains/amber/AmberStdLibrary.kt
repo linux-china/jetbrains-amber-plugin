@@ -28,6 +28,7 @@ val STD_ARRAY_MEMBERS = listOf(
     f("array_last"),
     f("array_pop"),
     f("array_shift"),
+    f("array_reversed"),
     f("sort"),
     f("sorted"),
 )
