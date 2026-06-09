@@ -51,7 +51,7 @@ pub fun array_contains(array, value) {
 /// ```
 pub fun array_first(array) {
     if len(array) == 0:
-        fail 1
+    fail 1
     return array[0]
 }
 
@@ -65,7 +65,7 @@ pub fun array_first(array) {
 pub fun array_last(array) {
     const index = len(array) - 1
     if index < 0:
-        fail 1
+    fail 1
     return array[index]
 }
 
@@ -96,7 +96,7 @@ pub fun array_remove_at(ref array: [], index: Int): Null {
 /// ```
 pub fun array_extract_at(ref array: [], index: Int) {
     if index < 0 or index >= len(array):
-        fail 1
+    fail 1
     const element = array[index]
     const offset = index + 1
     const length = len(array)
@@ -118,7 +118,7 @@ pub fun array_pop(ref array) {
     const length = len(array)
     const index = length - 1
     if index < 0:
-        fail 1
+    fail 1
     const element = array[index]
     array = array[0..index]
     return element
@@ -137,7 +137,7 @@ pub fun array_pop(ref array) {
 pub fun array_shift(ref array) {
     const length = len(array)
     if length == 0:
-        fail 1
+    fail 1
     const element = array[0]
     array = array[1..length]
     return element
@@ -156,10 +156,10 @@ pub fun array_filled(size, value = 0) {
     array = array[0..0] // Resetting the array size to 0
 
     if size <= 0 or not (size is Int):
-        return array
+    return array
 
     for _ in 0..size:
-        array += [value]
+    array += [value]
 
     return array
 }
@@ -175,35 +175,35 @@ pub fun array_filled(size, value = 0) {
 /// ```
 pub fun sorted(array: [], desc: Bool = false, version_sort: Bool = false): [] {
     if array is [Null] or len(array) <= 1:
-        return array
+    return array
 
     const desc_flag = desc then "-r" else ""
     let sort_flag = ""
     if {
-        array is [Text] and version_sort:
-            sort_flag = "-V"
-        array is [Num] or array is [Int] or array is [Bool]:
-            sort_flag = "-n"
+    array is [Text] and version_sort:
+    sort_flag = "-V"
+    array is [Num] or array is [Int] or array is [Bool]:
+    sort_flag = "-n"
     }
 
     let result = []
     if {
-        shellname() == "bash" {
-            trust $
+    shellname() == "bash" {
+        trust $
                 LC_ALL=C IFS="\n" read -rd '' -a {nameof(result)} < <(printf "%s\n" "\$\{{nameof(array)}[@]}" | LC_ALL=C sort {sort_flag} {desc_flag})
             $
-        }
-        shellname() == "zsh" {
-            trust $
+    }
+    shellname() == "zsh" {
+        trust $
                 LC_ALL=C IFS="\n" read -rd '' -A {nameof(result)} < <(printf "%s\n" "\$\{{nameof(array)}[@]}" | LC_ALL=C sort {sort_flag} {desc_flag})
                 {nameof(result)}[-1]=()
             $
-        }
-        shellname() == "ksh" {
-            trust $
+    }
+    shellname() == "ksh" {
+        trust $
                 set -A {nameof(result)} -- \$(printf "%s\n" "\$\{{nameof(array)}[@]}" | LC_ALL=C sort {sort_flag} {desc_flag})
             $
-        }
+    }
     }
     return result
 }
@@ -221,4 +221,25 @@ pub fun sorted(array: [], desc: Bool = false, version_sort: Bool = false): [] {
 /// ```
 pub fun sort(ref array: [], desc: Bool = false, version_sort: Bool = false): Null {
     array = sorted(array, desc, version_sort)
+}
+
+/// Return the reversed array
+///
+/// ### Usage
+/// ```ab
+/// echo(array_reversed(["15", "-3", "foo", "bar"])) // Outputs ["bar", "foo", "-3", "15"]
+/// ```
+pub fun array_reversed(array: []): [] {
+    if len(array) < 2: return array
+
+    let i = 1
+    let new_arr = []
+    const array_len = len(array)
+
+    while i <= array_len {
+        new_arr += [array[array_len - i]]
+        i += 1
+    }
+
+    return new_arr
 }
