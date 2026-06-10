@@ -22,6 +22,11 @@ object AmberInterpreterDetector {
     }
 
     private fun detect(): Boolean {
+        val userHome = System.getProperty("user.home")
+        if (userHome != null) {
+            val candidate = File(userHome, ".local/bin/amber")
+            if (candidate.isFile && candidate.canExecute()) return true
+        }
         val pathEnv = System.getenv("PATH") ?: return false
         val executable = if (SystemInfo.isWindows) "amber.exe" else "amber"
         return pathEnv.split(File.pathSeparator).any { dir ->
