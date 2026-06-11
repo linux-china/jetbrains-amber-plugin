@@ -34,7 +34,7 @@ class NewAmberFileAction : AnAction() {
             null
         )?.trim()?.takeIf { it.isNotEmpty() } ?: return
 
-        val fileName = if (input.endsWith(".ab")) input else "$input.ab"
+        val fileName = if (input.endsWith(".ab") || input.equals("Amberfile", ignoreCase = true)) input else "$input.ab"
 
         if (dir.findFile(fileName) != null) {
             Messages.showErrorDialog(project, "File '$fileName' already exists.", "New Amber File")
