@@ -14,25 +14,24 @@ import org.mvnsearch.jetbrains.amber.terminal.AmberTerminalService
 
 class AmberfileLineMarkerProvider : LineMarkerProvider {
 
-    override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
-        if (element.node?.elementType != AmberTypes.FUN_KW) return null
-        val file = element.containingFile?.originalFile ?: return null
-        val functionDef = element.parent as? AmberFunctionDef ?: return null
+    override fun getLineMarkerInfo(functionDef: PsiElement): LineMarkerInfo<*>? {
+        if (functionDef !is AmberFunctionDef) return null
+        val file = functionDef.containingFile?.originalFile ?: return null
+        // only Amberfile
+        if (file.name != "Amberfile") return null
         // only pub functions
         if (functionDef.visibility == null) return null
         val functionName = functionDef.functionName.text ?: return null
-        if (file.virtualFile == null) return null
-        // only Amberfile
-        if (file.name != "Amberfile") return null
+        if (functionDef.parameterList.isNotEmpty()) return null
 
         return LineMarkerInfo(
-            element,
-            element.textRange,
-            AllIcons.RunConfigurations.TestState.Run,
-            { "Run $functionName" },
+            functionDef,
+            functionDef.textRange,
+            AllIcons.Actions.Execute,
+            { "Run $functionName Task" },
             { _, _ -> runFunction(file, functionName) },
             GutterIconRenderer.Alignment.LEFT,
-            { "Run $functionName" }
+            { "Run $functionName Task" }
         )
     }
 
