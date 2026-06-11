@@ -22,6 +22,7 @@ Amber JetBrains plugin features:
 * Run a script from shebang or main function
 * Run a test case from the test gutter icon
 * Run configuration support: `Run -> Edit Configurations -> Amber` or right-click in an Amber script
+* `Amberfile` task file support: define tasks and run them with Amber language
 * Code completion: std library, imported members, function, keywords, etc.
 * Navigation support for function
 * Basic support for formatting
