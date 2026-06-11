@@ -25,7 +25,8 @@
                   implementationClass="org.mvnsearch.jetbrains.amber.AmberFileType"
                   fieldName="INSTANCE"
                   language="Amber"
-                  extensions="ab"/>
+                  extensions="ab"
+                  fileNames="Amberfile;amberfile"/>
         <lang.parserDefinition language="Amber"
                                implementationClass="org.mvnsearch.jetbrains.amber.AmberParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Amber"
@@ -94,6 +95,8 @@
                                         implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberMainLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="Amber"
                                         implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberTestLineMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="Amber"
+                                        implementationClass="org.mvnsearch.jetbrains.amber.marker.AmberfileLineMarkerProvider"/>
         <liveTemplateContext contextId="AMBER"
                              implementation="org.mvnsearch.jetbrains.amber.template.AmberTemplateContextType"/>
         <defaultLiveTemplates file="liveTemplates/Amber"/>
