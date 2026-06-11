@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## 0.2.0 - 2026-06-11
+
+### Added
+
+- `Amberfile` task file support: define tasks and run them with Amber language
+
 ## 0.1.0 - 2026-06-06
 
 ### Added
