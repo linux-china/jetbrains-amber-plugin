@@ -18,7 +18,7 @@ class AmberfileLineMarkerProvider : LineMarkerProvider {
         if (functionDef !is AmberFunctionDef) return null
         val file = functionDef.containingFile?.originalFile ?: return null
         // only Amberfile
-        if (file.name != "Amberfile" || file.name != "amberfile") return null
+        if (!(file.name == "Amberfile" || file.name == "amberfile")) return null
         // only pub functions
         if (functionDef.visibility == null) return null
         val functionName = functionDef.functionName.text ?: return null
