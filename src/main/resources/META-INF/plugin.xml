@@ -37,6 +37,12 @@
                                implementationClass="org.mvnsearch.jetbrains.commandline.AmberCommandParserDefinition"/>
         <lang.syntaxHighlighterFactory language="AmberCommand"
                                        implementationClass="org.mvnsearch.jetbrains.commandline.lighter.AmberCommandSyntaxHighlighterFactory"/>
+        <!-- Inject AmberCommand into `$ command_name options $` command lines (delimiters excluded) -->
+        <multiHostInjector
+                implementation="org.mvnsearch.jetbrains.amber.injection.AmberCommandInjector"/>
+        <lang.elementManipulator
+                forClass="org.mvnsearch.jetbrains.amber.psi.AmberCommandLine"
+                implementationClass="org.mvnsearch.jetbrains.amber.refactoring.AmberCommandLineManipulator"/>
         <lang.braceMatcher language="Amber"
                            implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberBraceMatcher"/>
         <lang.commenter language="Amber"

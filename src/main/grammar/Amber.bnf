@@ -316,7 +316,10 @@ null_lit ::= 'null'
 number_lit ::= NUMBER
 text_lit ::= STRING
 command_call ::= command_modifier command_line handler?
-command_line ::= COMMAND
+command_line ::= COMMAND {
+  implements="com.intellij.psi.PsiLanguageInjectionHost"
+  mixin="org.mvnsearch.jetbrains.amber.psi.AmberCommandLineMixin"
+}
 array_lit ::= '[' array_body? ']'
 private array_body ::= expression_list | type_ref
 status_expr ::= 'status' ('(' ')')?
