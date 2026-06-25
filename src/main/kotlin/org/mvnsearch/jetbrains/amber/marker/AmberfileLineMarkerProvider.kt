@@ -9,7 +9,6 @@ import com.intellij.openapi.vfs.VfsUtilCore
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import org.mvnsearch.jetbrains.amber.psi.AmberFunctionDef
-import org.mvnsearch.jetbrains.amber.psi.AmberTypes
 import org.mvnsearch.jetbrains.amber.terminal.AmberTerminalService
 
 class AmberfileLineMarkerProvider : LineMarkerProvider {

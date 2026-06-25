@@ -1,5 +1,7 @@
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
+import org.jetbrains.intellij.platform.gradle.tasks.GenerateLexerTask
+import org.jetbrains.intellij.platform.gradle.tasks.GenerateParserTask
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 fun properties(key: String) = project.findProperty(key).toString()
@@ -38,6 +40,29 @@ tasks {
         pathToParser.set("/org/mvnsearch/jetbrains/amber/parser/AmberParser.java")
         pathToPsiRoot.set("/org/mvnsearch/jetbrains/amber/psi")
         purgeOldFiles.set(true)
+    }
+
+    // AmberCommand (GNU command line) grammar generation
+    val generateCommandLexer by registering(GenerateLexerTask::class) {
+        sourceFile.set(file("src/main/grammar/AmberCommand.flex"))
+        targetOutputDir.set(file("src/main/gen/org/mvnsearch/jetbrains/commandline/lexer"))
+        purgeOldFiles.set(true)
+    }
+
+    val generateCommandParser by registering(GenerateParserTask::class) {
+        sourceFile.set(file("src/main/grammar/AmberCommand.bnf"))
+        targetRootOutputDir.set(file("src/main/gen"))
+        pathToParser.set("/org/mvnsearch/jetbrains/commandline/parser/AmberCommandParser.java")
+        pathToPsiRoot.set("/org/mvnsearch/jetbrains/commandline/psi")
+        purgeOldFiles.set(true)
+    }
+
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        dependsOn(generateLexer, generateParser, generateCommandLexer, generateCommandParser)
+    }
+
+    withType<JavaCompile> {
+        dependsOn(generateLexer, generateParser, generateCommandLexer, generateCommandParser)
     }
 
     patchPluginXml {

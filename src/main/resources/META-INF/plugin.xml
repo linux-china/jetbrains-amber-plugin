@@ -31,6 +31,12 @@
                                implementationClass="org.mvnsearch.jetbrains.amber.AmberParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Amber"
                                        implementationClass="org.mvnsearch.jetbrains.amber.lighter.AmberSyntaxHighlighterFactory"/>
+
+        <!-- AmberCommand: GNU command line parsing support -->
+        <lang.parserDefinition language="AmberCommand"
+                               implementationClass="org.mvnsearch.jetbrains.commandline.AmberCommandParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="AmberCommand"
+                                       implementationClass="org.mvnsearch.jetbrains.commandline.lighter.AmberCommandSyntaxHighlighterFactory"/>
         <lang.braceMatcher language="Amber"
                            implementationClass="org.mvnsearch.jetbrains.amber.misc.AmberBraceMatcher"/>
         <lang.commenter language="Amber"

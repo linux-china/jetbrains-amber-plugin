@@ -1,0 +1,86 @@
+{
+  parserClass="org.mvnsearch.jetbrains.commandline.parser.AmberCommandParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="AmberCommand"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.mvnsearch.jetbrains.commandline.psi"
+  psiImplPackage="org.mvnsearch.jetbrains.commandline.psi.impl"
+
+  elementTypeHolderClass="org.mvnsearch.jetbrains.commandline.psi.AmberCommandTypes"
+  elementTypeClass="org.mvnsearch.jetbrains.commandline.psi.AmberCommandElementType"
+  tokenTypeClass="org.mvnsearch.jetbrains.commandline.psi.AmberCommandTokenType"
+
+  tokens = [
+    AMP_AMP      = '&&'
+    PIPE_PIPE    = '||'
+    GT_GT        = '>>'
+    PIPE         = '|'
+    GT           = '>'
+    LT           = '<'
+    AMP          = '&'
+    SEMICOLON    = ';'
+
+    DASH_DASH    = '--'
+    DASH         = '-'
+    EQ           = '='
+    COLON        = ':'
+
+    LBRACE       = '{'
+    RBRACE       = '}'
+
+    IDENTIFIER   = 'regexp:[A-Za-z_][A-Za-z0-9_]*'
+    WORD         = 'regexp:([^ \t\f\r\n|<>&;{}"\x27#=:-]|\\.)+'
+    DQ_STRING    = 'regexp:"([^\\"]|\\.)*"?'
+    SQ_STRING    = "regexp:'[^']*'?"
+
+    COMMENT      = 'regexp:#[^\r\n]*'
+    NEWLINE      = 'regexp:(\r\n|\r|\n)+'
+  ]
+}
+
+// A script is a list of command lines, separated by ';', '&' or newlines.
+root ::= separator* (command_line (separator+ command_line)*)? separator*
+
+private separator ::= NEWLINE | SEMICOLON | AMP
+
+// command_line ::= a pipeline, optionally chained with && / ||
+command_line ::= pipeline (logical_op pipeline)*
+
+logical_op ::= AMP_AMP | PIPE_PIPE
+
+// pipeline ::= one or more commands joined by '|'
+pipeline ::= command (PIPE command)*
+
+// command ::= a command name followed by options, arguments and redirections (any order)
+command ::= command_name command_element*
+
+private command_element ::= redirection | option | argument
+
+command_name ::= value
+
+// options: long ('--name', '--name=value', '--') and short ('-x', '-')
+option ::= long_option | short_option
+long_option ::= '--' option_name? assignment?
+short_option ::= '-' option_name?
+option_name ::= WORD
+assignment ::= '='? value
+
+argument ::= value
+
+// I/O redirections: > >> <
+redirection ::= redirect_op redirect_target
+private redirect_op ::= GT_GT | GT | LT
+redirect_target ::= value
+
+// a value is one or more parts joined by ':' or '=' (e.g. host:port, key=value, image:tag)
+private value ::= value_part (value_glue value_part)*
+private value_glue ::= COLON | EQ
+private value_part ::= interpolation | string_literal | WORD
+
+string_literal ::= DQ_STRING | SQ_STRING
+
+// {name} interpolated variable
+interpolation ::= '{' variable_name '}'
+variable_name ::= IDENTIFIER
