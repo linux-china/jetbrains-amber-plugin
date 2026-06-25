@@ -27,10 +27,13 @@ IDENTIFIER=[A-Za-z_][A-Za-z0-9_]*
 DQ_STRING=\"([^\\\"]|\\.)*\"?
 SQ_STRING='[^']*'?
 
-// a bare word/argument: any run of characters that are not whitespace,
-// shell operators, braces, quotes, option/separator punctuation (= : -) or a
-// comment marker (backslash escapes allowed)
-WORD=([^ \t\f\r\n|<>&;{}\"'#=:\-]|\\.)+
+// a bare word/argument such as a path or file name (e.g. /usr/bin, file.name,
+// xxx-yyy.name). A word may *contain* '-' but must not *start* with one, so a
+// leading '-' / '--' is still tokenized as an option dash. ':' and '=' stay
+// separators. Backslash escapes are allowed anywhere.
+WORD_HEAD=([^ \t\f\r\n|<>&;{}\"'#=:\-]|\\.)
+WORD_TAIL=([^ \t\f\r\n|<>&;{}\"'#=:]|\\.)
+WORD={WORD_HEAD}{WORD_TAIL}*
 
 %%
 
@@ -52,6 +55,7 @@ WORD=([^ \t\f\r\n|<>&;{}\"'#=:\-]|\\.)+
   "-"                      { return AmberCommandTypes.DASH; }
   "="                      { return AmberCommandTypes.EQ; }
   ":"                      { return AmberCommandTypes.COLON; }
+  "."                      { return AmberCommandTypes.DOT; }
 
   "{"                      { yybegin(INTERP); return AmberCommandTypes.LBRACE; }
 

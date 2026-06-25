@@ -26,12 +26,14 @@
     DASH         = '-'
     EQ           = '='
     COLON        = ':'
+    DOT          = '.'
 
     LBRACE       = '{'
     RBRACE       = '}'
 
     IDENTIFIER   = 'regexp:[A-Za-z_][A-Za-z0-9_]*'
-    WORD         = 'regexp:([^ \t\f\r\n|<>&;{}"\x27#=:-]|\\.)+'
+    // a path / file name: may contain '-' but not start with one (so leading '-'/'--' stays an option dash)
+    WORD         = 'regexp:([^ \t\f\r\n|<>&;{}"\x27#=:-]|\\.)([^ \t\f\r\n|<>&;{}"\x27#=:]|\\.)*'
     DQ_STRING    = 'regexp:"([^\\"]|\\.)*"?'
     SQ_STRING    = "regexp:'[^']*'?"
 
@@ -77,7 +79,7 @@ redirect_target ::= value
 // a value is one or more parts joined by ':' or '=' (e.g. host:port, key=value, image:tag)
 private value ::= value_part (value_glue value_part)*
 private value_glue ::= COLON | EQ
-private value_part ::= interpolation | string_literal | WORD
+private value_part ::= interpolation | string_literal | WORD | DOT
 
 string_literal ::= DQ_STRING | SQ_STRING
 
