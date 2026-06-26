@@ -60,7 +60,7 @@ command ::= command_name command_element*
 
 private command_element ::= redirection | option | argument
 
-command_name ::= value
+command_name ::= interpolation | WORD
 
 // options: long ('--name', '--name=value', '--') and short ('-x', '-')
 option ::= long_option | short_option
