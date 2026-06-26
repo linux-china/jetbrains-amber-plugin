@@ -17,6 +17,7 @@
     PIPE_PIPE    = '||'
     GT_GT        = '>>'
     PIPE         = '|'
+    PIPE_ERR         = '|&'
     GT           = '>'
     LT           = '<'
     AMP          = '&'
@@ -26,12 +27,12 @@
     DASH         = '-'
     EQ           = '='
     COLON        = ':'
-    DOLLAR          = '$'
-    DOT          = '.'
+    DOLLAR       = '$'
 
     LBRACE       = '{'
     RBRACE       = '}'
 
+    REDIRECT_ERR   = 'regexp:("2>")|("2>>")|("&>")|("&>>")|("2>&1")|("|&")'
     VARIABLE   = 'regexp:[A-Za-z_][A-Za-z0-9_]*'
     // a path / file name: may contain '-' but not start with one (so leading '-'/'--' stays an option dash)
     WORD         = 'regexp:([^ \t\f\r\n|<>&;{}"\x27#=:-]|\\.)([^ \t\f\r\n|<>&;{}"\x27#=:]|\\.)*'
@@ -45,18 +46,14 @@
   ]
 }
 
-// A script is a list of command lines, separated by ';', '&' or newlines.
-root ::= (command_line (separator+ command_line)*)? separator*
+// A script is a list of command lines, separated by '&', &&', '||', ';' or newlines.
+root ::= (command_line (cmd_separator+ command_line)*)? cmd_separator*
 
-private separator ::= NEWLINE | SEMICOLON | AMP
+private cmd_separator ::= NEWLINE | SEMICOLON | AMP_AMP | AMP | PIPE_PIPE
 
-// command_line ::= a pipeline, optionally chained with && / ||
-command_line ::= pipeline (logical_op pipeline)*
-
-logical_op ::= AMP_AMP | PIPE_PIPE
-
-// pipeline ::= one or more commands joined by '|'
-pipeline ::= command (PIPE command)*
+// command_line ::= one or more commands joined by '|' or '|&'
+private pipe_op ::= PIPE | PIPE_ERR
+command_line ::= command (pipe_op command)*
 
 // command ::= a command name followed by options, arguments and redirections (any order)
 command ::= command_name command_element*
@@ -76,8 +73,8 @@ argument ::= value
 
 // I/O redirections: > >> <
 redirection ::= redirect_op redirect_target
-private redirect_op ::= GT_GT | GT | LT
-redirect_target ::= value
+private redirect_op ::= GT_GT | GT | LT | REDIRECT_ERR
+redirect_target ::=  value
 
 // a value is one or more parts joined by ':' or '=' (e.g. host:port, key=value, image:tag)
 private value ::= value_part (value_glue value_part)*
@@ -85,7 +82,7 @@ private value_glue ::= COLON | EQ
 private value_part ::= interpolation | string_literal | glob_pattern | WORD
 
 // a glob pattern such as *.txt, file?.log or src/[abc]*.kt
-glob_pattern ::= GLOB | DOT
+glob_pattern ::= GLOB
 
 string_literal ::= DQ_STRING | SQ_STRING
 

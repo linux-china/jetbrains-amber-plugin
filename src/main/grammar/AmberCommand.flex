@@ -21,6 +21,7 @@ import com.intellij.psi.TokenType;
 WHITE_SPACE=[ \t\f]+
 NEWLINE=(\r\n|\r|\n)+
 COMMENT="#"[^\r\n]*
+REDIRECT_ERR=("2>")|("2>>")|("&>")|("&>>")|("2>&1")
 
 VARIABLE=[A-Za-z_][A-Za-z0-9_]*
 
@@ -56,6 +57,7 @@ GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_
   "||"                     { return AmberCommandTypes.PIPE_PIPE; }
   ">>"                     { return AmberCommandTypes.GT_GT; }
   "|"                      { return AmberCommandTypes.PIPE; }
+  "|&"                      { return AmberCommandTypes.PIPE_ERR; }
   ">"                      { return AmberCommandTypes.GT; }
   "<"                      { return AmberCommandTypes.LT; }
   "&"                      { return AmberCommandTypes.AMP; }
@@ -65,7 +67,7 @@ GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_
   "-"                      { return AmberCommandTypes.DASH; }
   "="                      { return AmberCommandTypes.EQ; }
   ":"                      { return AmberCommandTypes.COLON; }
-  "."                      { return AmberCommandTypes.DOT; }
+  {REDIRECT_ERR}           { return AmberCommandTypes.REDIRECT_ERR; }
 
   "$" / "{"                { yybegin(INTERP); return AmberCommandTypes.DOLLAR; }
   "{"                      { yybegin(INTERP); return AmberCommandTypes.LBRACE; }
