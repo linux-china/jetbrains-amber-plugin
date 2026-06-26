@@ -98,5 +98,8 @@ glob_pattern ::= GLOB
 string_literal ::= DQ_STRING | SQ_STRING
 
 // {name} interpolated variable
+interpolation ::= '{' VARIABLE '}'
+
+// brace expansion
 brace_expansion ::=  DOLLAR? '{' (VARIABLE|INT_RANGE|CHAR_RANGE|brace_expansion_elements) '}'
 brace_expansion_elements ::= COMMA? CHARS (COMMA CHARS)*
