@@ -36,7 +36,7 @@ class AmberCommandSyntaxHighlighter : SyntaxHighlighterBase() {
         val VARIABLE: TextAttributesKey =
             createTextAttributesKey("AMBER_COMMAND_VARIABLE", DefaultLanguageHighlighterColors.STATIC_FIELD)
         val GLOB: TextAttributesKey =
-            createTextAttributesKey("AMBER_COMMAND_GLOB", DefaultLanguageHighlighterColors.CONSTANT)
+            createTextAttributesKey("AMBER_COMMAND_GLOB", DefaultLanguageHighlighterColors.METADATA)
         val STRING: TextAttributesKey =
             createTextAttributesKey("AMBER_COMMAND_STRING", DefaultLanguageHighlighterColors.STRING)
         val COMMENT: TextAttributesKey =
