@@ -7,6 +7,6 @@ import javax.swing.Icon
 object AmberCommandFileType : LanguageFileType(AmberCommandLanguage) {
     override fun getName(): String = "AmberCommand"
     override fun getDescription(): String = "Amber command line file"
-    override fun getDefaultExtension(): String = "abd"
+    override fun getDefaultExtension(): String = "abc"
     override fun getIcon(): Icon = AmberIcons.FILE
 }
