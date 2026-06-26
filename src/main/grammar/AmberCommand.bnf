@@ -26,6 +26,7 @@
     DASH         = '-'
     EQ           = '='
     COLON        = ':'
+    DOLLAR          = '$'
     DOT          = '.'
 
     LBRACE       = '{'
@@ -89,4 +90,4 @@ glob_pattern ::= GLOB | DOT
 string_literal ::= DQ_STRING | SQ_STRING
 
 // {name} interpolated variable
-interpolation ::= '{' VARIABLE '}'
+interpolation ::=  DOLLAR? '{' VARIABLE '}'

@@ -67,6 +67,7 @@ GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_
   ":"                      { return AmberCommandTypes.COLON; }
   "."                      { return AmberCommandTypes.DOT; }
 
+  "$" / "{"                { yybegin(INTERP); return AmberCommandTypes.DOLLAR; }
   "{"                      { yybegin(INTERP); return AmberCommandTypes.LBRACE; }
 
   {DQ_STRING}              { return AmberCommandTypes.DQ_STRING; }
@@ -78,6 +79,7 @@ GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_
 <INTERP> {
   {WHITE_SPACE}            { return TokenType.WHITE_SPACE; }
   {VARIABLE}               { return AmberCommandTypes.VARIABLE; }
+  "{"                      { yybegin(INTERP); return AmberCommandTypes.LBRACE; }
   "}"                      { yybegin(YYINITIAL); return AmberCommandTypes.RBRACE; }
 }
 
