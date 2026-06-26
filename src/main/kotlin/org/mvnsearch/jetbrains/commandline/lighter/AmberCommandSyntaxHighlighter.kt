@@ -19,8 +19,8 @@ class AmberCommandSyntaxHighlighter : SyntaxHighlighterBase() {
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> = when (tokenType) {
         in OPERATORS -> OPERATOR_KEYS
         in BRACES -> BRACE_KEYS
-        AmberCommandTypes.IDENTIFIER -> IDENTIFIER_KEYS
-        AmberCommandTypes.WORD -> WORD_KEYS
+        AmberCommandTypes.VARIABLE -> VARIABLE_KEYS
+        AmberCommandTypes.GLOB -> GLOB_KEYS
         AmberCommandTypes.DQ_STRING -> STRING_KEYS
         AmberCommandTypes.SQ_STRING -> STRING_KEYS
         AmberCommandTypes.COMMENT -> COMMENT_KEYS
@@ -33,10 +33,10 @@ class AmberCommandSyntaxHighlighter : SyntaxHighlighterBase() {
             createTextAttributesKey("AMBER_COMMAND_OPERATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN)
         val BRACE: TextAttributesKey =
             createTextAttributesKey("AMBER_COMMAND_BRACE", DefaultLanguageHighlighterColors.BRACES)
-        val IDENTIFIER: TextAttributesKey =
-            createTextAttributesKey("AMBER_COMMAND_IDENTIFIER", DefaultLanguageHighlighterColors.INSTANCE_FIELD)
-        val WORD: TextAttributesKey =
-            createTextAttributesKey("AMBER_COMMAND_WORD", DefaultLanguageHighlighterColors.IDENTIFIER)
+        val VARIABLE: TextAttributesKey =
+            createTextAttributesKey("AMBER_COMMAND_VARIABLE", DefaultLanguageHighlighterColors.STATIC_FIELD)
+        val GLOB: TextAttributesKey =
+            createTextAttributesKey("AMBER_COMMAND_GLOB", DefaultLanguageHighlighterColors.CONSTANT)
         val STRING: TextAttributesKey =
             createTextAttributesKey("AMBER_COMMAND_STRING", DefaultLanguageHighlighterColors.STRING)
         val COMMENT: TextAttributesKey =
@@ -46,8 +46,8 @@ class AmberCommandSyntaxHighlighter : SyntaxHighlighterBase() {
 
         private val OPERATOR_KEYS = arrayOf(OPERATOR)
         private val BRACE_KEYS = arrayOf(BRACE)
-        private val IDENTIFIER_KEYS = arrayOf(IDENTIFIER)
-        private val WORD_KEYS = arrayOf(WORD)
+        private val VARIABLE_KEYS = arrayOf(VARIABLE)
+        private val GLOB_KEYS = arrayOf(GLOB)
         private val STRING_KEYS = arrayOf(STRING)
         private val COMMENT_KEYS = arrayOf(COMMENT)
         private val BAD_CHAR_KEYS = arrayOf(BAD_CHARACTER)
