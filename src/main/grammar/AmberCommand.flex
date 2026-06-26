@@ -16,7 +16,7 @@ import com.intellij.psi.TokenType;
 %eof{  return;
 %eof}
 
-%state INTERP
+%state BRACE_EXPANSION
 
 WHITE_SPACE=[ \t\f]+
 NEWLINE=(\r\n|\r|\n)+
@@ -38,6 +38,9 @@ WORD_HEAD=([^ \t\f\r\n|<>&;{}\"'#=:\-]|\\.)
 WORD_TAIL=([^ \t\f\r\n|<>&;{}\"'#=:]|\\.)
 WORD={WORD_HEAD}{WORD_TAIL}*
 
+INT_RANGE=[0-9]+\.\.[0-9]+(\.\.[0-9]+)?
+CHAR_RANGE=[a-zA-Z]\.\.[a-zA-Z](\.\.[0-9]+)?
+CHARS=[a-zA-Z0-9_\-\.]+
 // glob wildcards: '*', '?' and '[...]' bracket expressions. A GLOB is a
 // filename-like run that contains at least one wildcard metacharacter. Like a
 // WORD it must not start with '-' (so a leading '-'/'--' stays an option dash),
@@ -74,9 +77,10 @@ GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_
   "(("                      { return AmberCommandTypes.OPEN_PAREN2; }
   "))"                      { return AmberCommandTypes.CLOSE_PAREN2; }
   {REDIRECT_ERR}           { return AmberCommandTypes.REDIRECT_ERR; }
+  "{}"                      { return AmberCommandTypes.EMPTY_BRACE; }
 
-  "$" / "{"                { yybegin(INTERP); return AmberCommandTypes.DOLLAR; }
-  "{"                      { yybegin(INTERP); return AmberCommandTypes.LBRACE; }
+  "$" / "{"                { yybegin(BRACE_EXPANSION); return AmberCommandTypes.DOLLAR; }
+  "{"                      { yybegin(BRACE_EXPANSION); return AmberCommandTypes.LBRACE; }
 
   {LONG_OPTION}              { return AmberCommandTypes.LONG_OPTION; }
   {SHORT_OPTION}              { return AmberCommandTypes.SHORT_OPTION; }
@@ -86,10 +90,14 @@ GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_
   {WORD}                   { return AmberCommandTypes.WORD; }
 }
 
-<INTERP> {
+<BRACE_EXPANSION> {
   {WHITE_SPACE}            { return TokenType.WHITE_SPACE; }
   {VARIABLE}               { return AmberCommandTypes.VARIABLE; }
-  "{"                      { yybegin(INTERP); return AmberCommandTypes.LBRACE; }
+  {INT_RANGE}               { return AmberCommandTypes.INT_RANGE; }
+  {CHAR_RANGE}               { return AmberCommandTypes.CHAR_RANGE; }
+  {CHARS}               { return AmberCommandTypes.CHARS; }
+  ","                      {  return AmberCommandTypes.COMMA; }
+  "{"                      { return AmberCommandTypes.LBRACE; }
   "}"                      { yybegin(YYINITIAL); return AmberCommandTypes.RBRACE; }
 }
 

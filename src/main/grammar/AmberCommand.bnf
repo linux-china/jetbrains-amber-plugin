@@ -22,6 +22,7 @@
     LT           = '<'
     AMP          = '&'
     SEMICOLON    = ';'
+    COMMA    = ','
 
     DASH_DASH    = '--'
     DASH         = '-'
@@ -31,6 +32,7 @@
 
     LBRACE       = '{'
     RBRACE       = '}'
+    EMPTY_BRACE  = '{}'
     OPEN_BRACKET2 = '[['
     CLOSE_BRACKET2 = ']]'
     OPEN_PAREN2 = '(('
@@ -46,6 +48,9 @@
     GLOB         = 'regexp:([^ \t\f\r\n|<>&;{}"\x27#=:*?\[\]-]|\\.|[*?]|\[[^\]\r\n]*\])*[*?\[]([^ \t\f\r\n|<>&;{}"\x27#=:]|\[[^\]\r\n]*\])*'
     DQ_STRING    = 'regexp:"([^\\"]|\\.)*"?'
     SQ_STRING    = "regexp:'[^']*'?"
+    INT_RANGE    = 'regexp:[0-9]+\.\.[0-9]+'
+    CHAR_RANGE    = 'regexp:[a-zA-Z]+\.\.[a-zA-Z]+'
+    CHARS    = 'regexp:[a-zA-Z0-9_\-\\.]+'
 
     COMMENT      = 'regexp:#[^\r\n]*'
     NEWLINE      = 'regexp:(\r\n|\r|\n)+'
@@ -84,7 +89,7 @@ redirect_target ::=  value
 // a value is one or more parts joined by ':' or '=' (e.g. host:port, key=value, image:tag)
 private value ::= value_part (value_glue value_part)*
 private value_glue ::= COLON | EQ
-private value_part ::= interpolation | string_literal  | WORD | DASH | OPEN_BRACKET2 | CLOSE_BRACKET2 | OPEN_PAREN2 | CLOSE_PAREN2 | glob_pattern
+private value_part ::= brace_expansion | string_literal | WORD | DASH | OPEN_BRACKET2 | CLOSE_BRACKET2 | OPEN_PAREN2 | CLOSE_PAREN2 | EMPTY_BRACE | glob_pattern
 
 // a glob pattern such as *.txt, file?.log or src/[abc]*.kt
 glob_pattern ::= GLOB
@@ -92,4 +97,5 @@ glob_pattern ::= GLOB
 string_literal ::= DQ_STRING | SQ_STRING
 
 // {name} interpolated variable
-interpolation ::=  DOLLAR? '{' VARIABLE '}'
+brace_expansion ::=  DOLLAR? '{' (VARIABLE|INT_RANGE|CHAR_RANGE|brace_expansion_elements) '}'
+brace_expansion_elements ::= COMMA? CHARS (COMMA CHARS)*
