@@ -16,7 +16,9 @@ class AmberCommandBraceMatcher : PairedBraceMatcher {
 
     companion object {
         private val PAIRS: Array<BracePair> = arrayOf(
-            BracePair(AmberCommandTypes.LBRACE, AmberCommandTypes.RBRACE, false)
+            BracePair(AmberCommandTypes.LBRACE, AmberCommandTypes.RBRACE, false),
+            BracePair(AmberCommandTypes.OPEN_PAREN2, AmberCommandTypes.CLOSE_PAREN2, false),
+            BracePair(AmberCommandTypes.OPEN_BRACKET2, AmberCommandTypes.CLOSE_BRACKET2, false),
         )
     }
 }

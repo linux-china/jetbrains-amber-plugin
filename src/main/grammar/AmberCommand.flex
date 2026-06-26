@@ -44,7 +44,7 @@ WORD={WORD_HEAD}{WORD_TAIL}*
 // unless it starts with the wildcard itself.
 GLOB_PLAIN=([^ \t\f\r\n|<>&;{}\"'#=:*?\[\]]|\\.)
 GLOB_PLAIN_HEAD=([^ \t\f\r\n|<>&;{}\"'#=:*?\[\]\-]|\\.)
-GLOB_BRACKET=\[[^\]\r\n]*\]
+GLOB_BRACKET=\[[^\]\[\r\n][^\]\r\n]*\]
 GLOB_META=([*?]|{GLOB_BRACKET})
 GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_META}({GLOB_PLAIN}|{GLOB_META})*
 
@@ -69,6 +69,10 @@ GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_
   "-"                      { return AmberCommandTypes.DASH; }
   "="                      { return AmberCommandTypes.EQ; }
   ":"                      { return AmberCommandTypes.COLON; }
+  "[["                      { return AmberCommandTypes.OPEN_BRACKET2; }
+  "]]"                      { return AmberCommandTypes.CLOSE_BRACKET2; }
+  "(("                      { return AmberCommandTypes.OPEN_PAREN2; }
+  "))"                      { return AmberCommandTypes.CLOSE_PAREN2; }
   {REDIRECT_ERR}           { return AmberCommandTypes.REDIRECT_ERR; }
 
   "$" / "{"                { yybegin(INTERP); return AmberCommandTypes.DOLLAR; }

@@ -31,6 +31,10 @@
 
     LBRACE       = '{'
     RBRACE       = '}'
+    OPEN_BRACKET2 = '[['
+    CLOSE_BRACKET2 = ']]'
+    OPEN_PAREN2 = '(('
+    CLOSE_PAREN2 = '))'
 
     REDIRECT_ERR   = 'regexp:("2>")|("2>>")|("&>")|("&>>")|("2>&1")|("|&")'
     VARIABLE   = 'regexp:[A-Za-z_][A-Za-z0-9_]*'
@@ -80,7 +84,7 @@ redirect_target ::=  value
 // a value is one or more parts joined by ':' or '=' (e.g. host:port, key=value, image:tag)
 private value ::= value_part (value_glue value_part)*
 private value_glue ::= COLON | EQ
-private value_part ::= interpolation | string_literal | glob_pattern | WORD | DASH
+private value_part ::= interpolation | string_literal  | WORD | DASH | OPEN_BRACKET2 | CLOSE_BRACKET2 | OPEN_PAREN2 | CLOSE_PAREN2 | glob_pattern
 
 // a glob pattern such as *.txt, file?.log or src/[abc]*.kt
 glob_pattern ::= GLOB
