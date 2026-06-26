@@ -65,7 +65,7 @@ command_name ::= interpolation | WORD
 // options: long ('--name', '--name=value', '--') and short ('-x', '-')
 option ::= long_option | short_option
 long_option ::= '--' option_name? assignment?
-short_option ::= '-' option_name?
+short_option ::= '-' option_name? assignment?
 option_name ::= WORD
 assignment ::= '='? value
 
