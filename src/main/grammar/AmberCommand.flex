@@ -24,6 +24,8 @@ COMMENT="#"[^\r\n]*
 REDIRECT_ERR=("2>")|("2>>")|("&>")|("&>>")|("2>&1")
 
 VARIABLE=[A-Za-z_][A-Za-z0-9_]*
+LONG_OPTION=("--")[A-Za-z_][A-Za-z0-9_-]*
+SHORT_OPTION=("-")[A-Za-z_][A-Za-z0-9_-]*
 
 DQ_STRING=\"([^\\\"]|\\.)*\"?
 SQ_STRING='[^']*'?
@@ -72,6 +74,8 @@ GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_
   "$" / "{"                { yybegin(INTERP); return AmberCommandTypes.DOLLAR; }
   "{"                      { yybegin(INTERP); return AmberCommandTypes.LBRACE; }
 
+  {LONG_OPTION}              { return AmberCommandTypes.LONG_OPTION; }
+  {SHORT_OPTION}              { return AmberCommandTypes.SHORT_OPTION; }
   {DQ_STRING}              { return AmberCommandTypes.DQ_STRING; }
   {SQ_STRING}              { return AmberCommandTypes.SQ_STRING; }
   {GLOB}                   { return AmberCommandTypes.GLOB; }

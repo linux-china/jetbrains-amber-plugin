@@ -17,7 +17,7 @@
     PIPE_PIPE    = '||'
     GT_GT        = '>>'
     PIPE         = '|'
-    PIPE_ERR         = '|&'
+    PIPE_ERR     = '|&'
     GT           = '>'
     LT           = '<'
     AMP          = '&'
@@ -34,6 +34,8 @@
 
     REDIRECT_ERR   = 'regexp:("2>")|("2>>")|("&>")|("&>>")|("2>&1")|("|&")'
     VARIABLE   = 'regexp:[A-Za-z_][A-Za-z0-9_]*'
+    LONG_OPTION   = 'regexp:("--")[A-Za-z_][A-Za-z0-9_-]*'
+    SHORT_OPTION   = 'regexp:("-")[A-Za-z_][A-Za-z0-9_-]*'
     // a path / file name: may contain '-' but not start with one (so leading '-'/'--' stays an option dash)
     WORD         = 'regexp:([^ \t\f\r\n|<>&;{}"\x27#=:-]|\\.)([^ \t\f\r\n|<>&;{}"\x27#=:]|\\.)*'
     // a glob pattern: a filename-like run containing a wildcard '*', '?' or a '[...]' bracket expression
@@ -58,16 +60,15 @@ command_line ::= command (pipe_op command)*
 // command ::= a command name followed by options, arguments and redirections (any order)
 command ::= command_name command_element*
 
-private command_element ::= redirection | option | argument
+private command_element ::= redirection | option | DASH_DASH | argument
 
 command_name ::= interpolation | WORD
 
 // options: long ('--name', '--name=value', '--') and short ('-x', '-')
-option ::= long_option | short_option
-long_option ::= '--' option_name? assignment?
-short_option ::= '-' option_name? assignment?
-option_name ::= WORD
-assignment ::= '='? value
+option ::= long_option_pair | short_option_pair
+long_option_pair ::= LONG_OPTION '='? assignment?
+short_option_pair ::= SHORT_OPTION '='? assignment?
+assignment ::=  value
 
 argument ::= value
 
@@ -79,7 +80,7 @@ redirect_target ::=  value
 // a value is one or more parts joined by ':' or '=' (e.g. host:port, key=value, image:tag)
 private value ::= value_part (value_glue value_part)*
 private value_glue ::= COLON | EQ
-private value_part ::= interpolation | string_literal | glob_pattern | WORD
+private value_part ::= interpolation | string_literal | glob_pattern | WORD | DASH
 
 // a glob pattern such as *.txt, file?.log or src/[abc]*.kt
 glob_pattern ::= GLOB
