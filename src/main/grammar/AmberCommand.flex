@@ -22,7 +22,7 @@ WHITE_SPACE=[ \t\f]+
 NEWLINE=(\r\n|\r|\n)+
 COMMENT="#"[^\r\n]*
 
-IDENTIFIER=[A-Za-z_][A-Za-z0-9_]*
+VARIABLE=[A-Za-z_][A-Za-z0-9_]*
 
 DQ_STRING=\"([^\\\"]|\\.)*\"?
 SQ_STRING='[^']*'?
@@ -34,6 +34,16 @@ SQ_STRING='[^']*'?
 WORD_HEAD=([^ \t\f\r\n|<>&;{}\"'#=:\-]|\\.)
 WORD_TAIL=([^ \t\f\r\n|<>&;{}\"'#=:]|\\.)
 WORD={WORD_HEAD}{WORD_TAIL}*
+
+// glob wildcards: '*', '?' and '[...]' bracket expressions. A GLOB is a
+// filename-like run that contains at least one wildcard metacharacter. Like a
+// WORD it must not start with '-' (so a leading '-'/'--' stays an option dash),
+// unless it starts with the wildcard itself.
+GLOB_PLAIN=([^ \t\f\r\n|<>&;{}\"'#=:*?\[\]]|\\.)
+GLOB_PLAIN_HEAD=([^ \t\f\r\n|<>&;{}\"'#=:*?\[\]\-]|\\.)
+GLOB_BRACKET=\[[^\]\r\n]*\]
+GLOB_META=([*?]|{GLOB_BRACKET})
+GLOB={GLOB_META}({GLOB_PLAIN}|{GLOB_META})*|{GLOB_PLAIN_HEAD}{GLOB_PLAIN}*{GLOB_META}({GLOB_PLAIN}|{GLOB_META})*
 
 %%
 
@@ -61,12 +71,13 @@ WORD={WORD_HEAD}{WORD_TAIL}*
 
   {DQ_STRING}              { return AmberCommandTypes.DQ_STRING; }
   {SQ_STRING}              { return AmberCommandTypes.SQ_STRING; }
+  {GLOB}                   { return AmberCommandTypes.GLOB; }
   {WORD}                   { return AmberCommandTypes.WORD; }
 }
 
 <INTERP> {
   {WHITE_SPACE}            { return TokenType.WHITE_SPACE; }
-  {IDENTIFIER}             { return AmberCommandTypes.IDENTIFIER; }
+  {VARIABLE}               { return AmberCommandTypes.VARIABLE; }
   "}"                      { yybegin(YYINITIAL); return AmberCommandTypes.RBRACE; }
 }
 

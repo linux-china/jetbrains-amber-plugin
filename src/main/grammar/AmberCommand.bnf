@@ -31,9 +31,11 @@
     LBRACE       = '{'
     RBRACE       = '}'
 
-    IDENTIFIER   = 'regexp:[A-Za-z_][A-Za-z0-9_]*'
+    VARIABLE   = 'regexp:[A-Za-z_][A-Za-z0-9_]*'
     // a path / file name: may contain '-' but not start with one (so leading '-'/'--' stays an option dash)
     WORD         = 'regexp:([^ \t\f\r\n|<>&;{}"\x27#=:-]|\\.)([^ \t\f\r\n|<>&;{}"\x27#=:]|\\.)*'
+    // a glob pattern: a filename-like run containing a wildcard '*', '?' or a '[...]' bracket expression
+    GLOB         = 'regexp:([^ \t\f\r\n|<>&;{}"\x27#=:*?\[\]-]|\\.|[*?]|\[[^\]\r\n]*\])*[*?\[]([^ \t\f\r\n|<>&;{}"\x27#=:]|\[[^\]\r\n]*\])*'
     DQ_STRING    = 'regexp:"([^\\"]|\\.)*"?'
     SQ_STRING    = "regexp:'[^']*'?"
 
@@ -43,7 +45,7 @@
 }
 
 // A script is a list of command lines, separated by ';', '&' or newlines.
-root ::= separator* (command_line (separator+ command_line)*)? separator*
+root ::= (command_line (separator+ command_line)*)? separator*
 
 private separator ::= NEWLINE | SEMICOLON | AMP
 
@@ -79,10 +81,12 @@ redirect_target ::= value
 // a value is one or more parts joined by ':' or '=' (e.g. host:port, key=value, image:tag)
 private value ::= value_part (value_glue value_part)*
 private value_glue ::= COLON | EQ
-private value_part ::= interpolation | string_literal | WORD | DOT
+private value_part ::= interpolation | string_literal | glob_pattern | WORD
+
+// a glob pattern such as *.txt, file?.log or src/[abc]*.kt
+glob_pattern ::= GLOB | DOT
 
 string_literal ::= DQ_STRING | SQ_STRING
 
 // {name} interpolated variable
-interpolation ::= '{' variable_name '}'
-variable_name ::= IDENTIFIER
+interpolation ::= '{' VARIABLE '}'
