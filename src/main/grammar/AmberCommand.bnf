@@ -67,7 +67,8 @@ private pipe_op ::= PIPE | PIPE_ERR
 command_line ::= command (pipe_op command)*
 
 // command ::= a command name followed by options, arguments and redirections (any order)
-command ::= command_name command_element*
+command ::= env_variable* command_name command_element*
+env_variable ::=  WORD '=' (interpolation | WORD | string_literal )
 
 private command_element ::= redirection | option | DASH_DASH | argument
 
