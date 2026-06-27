@@ -18,6 +18,7 @@ Amber JetBrains plugin features:
 
 * Amber language and file types
 * Syntax highlight
+* Command line syntax highlighting for command
 * Amber file structure
 * Run a script from shebang or main function
 * Run a test case from the test gutter icon
